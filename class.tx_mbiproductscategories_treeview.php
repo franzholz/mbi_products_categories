@@ -24,10 +24,13 @@
 /**
  * This function displays a selector with nested categories.
  * The original code is borrowed from the extension "Digital Asset Management" (tx_dam) author: René Fritz <r.fritz@colorcube.de>
- * Modified by Christian Lang <christian.lang@mbi.de> for Products. 
+ * Modified by Christian Lang <christian.lang@mbi.de> for Products and Franz Holzinger for all other extensions. 
+ *
+ * $Id$
  *
  * @author	Rupert Germann <rupi@gmx.li>
  * @author	Christian Lang <christian.lang@mbi.de>
+ * @author	Franz Holzinger <kontakt@fholzinger.com>
  * @package TYPO3
  * @subpackage mbi_products_booking
  */
@@ -40,7 +43,7 @@
  *   70:     function wrapTitle($title,$v)
  *
  *
- *   89: class tx_ttnews_treeview
+ *   89: class tx_mbiproductscategories_treeview
  *   99:     function displayCategoryTree($PA, $fobj)
  *  353:     function getNotAllowedItems($PA,$SPaddWhere)
  *  397:     function findRecursiveCategories ($PA,$row,$table,$storagePid,$treeIds)
@@ -161,10 +164,10 @@ class tx_mbiproductscategories_treeview {
 				}
 					// get categories of the translation original
 				$catres = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query (
-					  'tt_products_cat.uid,tt_products_cat.title,tt_products_cat_mm.sorting AS mmsorting', 
-					  'tt_products', 'tt_products_cat_mm', 
-					  'tt_products_cat', 
-					  ' AND tt_products_cat_mm.uid_local='.$row['l18n_parent'].$SPaddWhere,
+					 $config['foreign_table'].'.uid,'.$config['foreign_table'].'.title,mbi_products_categories_mm.sorting AS mmsorting', 
+					  $table, 'mbi_products_categories_mm', 
+					  $config['foreign_table'], 
+					  ' AND mbi_products_categories_mm.uid_local='.$row['l18n_parent'].$SPaddWhere,
 					  '', 
 					  'mmsorting');
 				$categories = array();
@@ -402,28 +405,31 @@ class tx_mbiproductscategories_treeview {
 	 * @return	array		error messages
 	 */
 	function findRecursiveCategories ($PA,$row,$table,$storagePid,$treeIds) {
+			// Field configuration from TCA:
+		$config = $PA['fieldConf']['config'];
+		
 		$errorMsg = array();
-		if ($table == 'tt_content' && $row['CType']=='list' && $row['list_type']==9) { // = tt_content element which inserts plugin tt_news
+		if ($table == 'tt_content' && $row['CType']=='list' && $row['list_type']==9) { // = tt_content element which inserts plugin of the extension
 			$cfgArr = t3lib_div::xml2array($row['pi_flexform']);
 			if (is_array($cfgArr) && is_array($cfgArr['data']['sDEF']['lDEF']) && $cfgArr['data']['sDEF']['lDEF']['categorySelection']) {
 				$rcList = $this->compareCategoryVals ($treeIds,$cfgArr['data']['sDEF']['lDEF']['categorySelection']['vDEF']);
 			}
-		} elseif ($table == 'tt_products_cat' || $table == 'tt_products') {
-			if ($table == 'tt_products_cat' && $row['pid'] == $storagePid && intval($row['uid']) && !in_array($row['uid'],$treeIds))	{ // if the selected category is not empty and not in the array of tree-uids it seems to be part of a chain of recursive categories
+		} elseif ($table == $config['foreign_table'] || $table == $PA['table']) {
+			if ($table == $config['foreign_table'] && $row['pid'] == $storagePid && intval($row['uid']) && !in_array($row['uid'],$treeIds))	{ // if the selected category is not empty and not in the array of tree-uids it seems to be part of a chain of recursive categories
 				$recursionMsg = 'RECURSIVE CATEGORIES DETECTED!! <br />This record is part of a chain of recursive categories. The affected categories will not be displayed in the category tree.  You should remove the parent category of this record to prevent this.';
 			}
-			if ($table == 'tt_products' && $row['category']) { // find recursive categories in the tt_news db-record
-				$rcList = $this->compareCategoryVals ($treeIds,$row['category']);
+			if ($table == $PA['table'] && $row[$PA['field']]) { // find recursive categories in the extension's db-record
+				$rcList = $this->compareCategoryVals ($treeIds,$row[$PA['field']]);
 			}
 			// in case of localized records this doesn't work
-			if ($storagePid && $row['pid'] != $storagePid && $table == 'tt_products_cat') { // if a storagePid is defined but the current category is not stored in storagePid
-				$errorMsg[] = '<p style="padding:10px;"><img src="gfx/icon_warning.gif" class="absmiddle" alt="" height="16" width="18"><strong style="color:red;"> Warning:</strong><br />tt_products is configured to display categories only from the "General record storage page" (GRSP). The current category is not located in the GRSP and will so not be displayed. To solve this you should either define a GRSP or disable "Use StoragePid" in the extension manager.</p>';
+			if ($storagePid && $row['pid'] != $storagePid && $table == $config['foreign_table']) { // if a storagePid is defined but the current category is not stored in storagePid
+				$errorMsg[] = '<p style="padding:10px;"><img src="gfx/icon_warning.gif" class="absmiddle" alt="" height="16" width="18"><strong style="color:red;"> Warning:</strong><br />The extension using table \''.$PA['table'].'\' is configured to display categories only from the "General record storage page" (GRSP). The current category is not located in the GRSP and will so not be displayed. To solve this you should either define a GRSP or disable "Use StoragePid" in the extension manager.</p>';
 			}
 		}
 		if (strlen($rcList)) {
 			$recursionMsg = 'RECURSIVE CATEGORIES DETECTED!! <br />This record has the following recursive categories assigned: '.$rcList.'<br />Recursive categories will not be shown in the category tree and will therefore not be selectable. ';
 
-			if ($table == 'tt_products') {
+			if ($table == $PA['table']) {
 				$recursionMsg .= 'To solve this problem mark these categories in the left select field, click on "edit category" and clear the field "parent category" of the recursive category.';
 			} else {
 				$recursionMsg .= 'To solve this problem you should clear the field "parent category" of the recursive category.';
@@ -490,13 +496,13 @@ class tx_mbiproductscategories_treeview {
 					// get categories of the record in db
 				$uidField = $row['l18n_parent']&&$row['sys_language_uid']?$row['l18n_parent']:$row['uid'];
 				$catres = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query (
-						    'tt_products_cat.uid,tt_products_cat.title,tt_products_cat_mm.sorting AS mmsorting', 
-							 'tt_products', 
-							 'tt_products_cat_mm', 
-							 'tt_products_cat', 
-							 ' AND tt_products_cat_mm.uid_local='.$uidField.$SPaddWhere,
-							 '', 
-							 'mmsorting');
+					 $config['foreign_table'].'.uid,'.$config['foreign_table'].'.title,mbi_products_categories_mm.sorting AS mmsorting', 
+					  $table, 'mbi_products_categories_mm', 
+					  $config['foreign_table'], 
+					  ' AND mbi_products_categories_mm.uid_local='.$uidField.$SPaddWhere,
+					  '', 
+					  'mmsorting');
+
 				$NACats = array();
 				while ($catrow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($catres)) {
 					if($catrow['uid'] && $notAllowedItems[0] && in_array($catrow['uid'],$notAllowedItems)) {
