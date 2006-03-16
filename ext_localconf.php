@@ -42,5 +42,12 @@ if (!defined ('MBI_PRODUCTS_CATEGORIES_DIV_DLOG')) {
 	define('MBI_PRODUCTS_CATEGORIES_DIV_DLOG', '0');	// for development error logging
 }
 
+$_EXTCONF = unserialize($_EXTCONF);    // unserializing the configuration so we can use it here:
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['pid_list'] = $_EXTCONF['pid_list'] ? $_EXTCONF['pid_list'] : '';
+
+
+// Hook for extending tt_products TCA
+$TYPO3_CONF_VARS['EXTCONF'][TT_PRODUCTS_EXTkey]['extendingTCA'][] = MBI_PRODUCTS_CATEGORIES_EXTkey;
+
 
 ?>

@@ -1,4 +1,7 @@
-(add new changes on top of this file)
+2006-03-15 Franz Holzinger  <kontakt@fholzinger.com>
+	* Sort the categories by the 'default_sortby' field of TCA['tt_products_cat']['ctrl']
+	* use the pid_list for the where clause
+
 2006-02-11 Franz Holzinger  <kontakt@fholzinger.com>
 	* Make it independant from the tt_products and tt_products_cat tables
 

@@ -32,15 +32,11 @@
  * @author	Christian Lang <christian.lang@mbi.de>
  * @author	Franz Holzinger <kontakt@fholzinger.com>
  * @package TYPO3
- * @subpackage mbi_products_booking
+ * @subpackage mbi_products_categories
  */
 /**
  * [CLASS/FUNCTION INDEX of SCRIPT]
  *
- *
- *
- *   58: class tx_ttnews_tceFunc_selectTreeView extends t3lib_treeview
- *   70:     function wrapTitle($title,$v)
  *
  *
  *   89: class tx_mbiproductscategories_treeview
@@ -55,37 +51,9 @@
  *
  */
 
-require_once(PATH_t3lib.'class.t3lib_treeview.php');
-	/**
-	 * extend class t3lib_treeview to change function wrapTitle().
-	 *
-	 */
-class tx_mbiproductscategories_tceFunc_selectTreeView extends t3lib_treeview {
+require_once(PATH_BE_mbiproductscategories.'lib/class.tx_mbiproductscategories_tcefunc_selecttreeview.php');
 
-	var $TCEforms_itemFormElName='';
-	var $TCEforms_nonSelectableItemsArray=array();
 
-	/**
-	 * wraps the record titles in the tree with links or not depending on if they are in the TCEforms_nonSelectableItemsArray.
-	 *
-	 * @param	string		$title: the title
-	 * @param	array		$v: an array with uid and title of the current item.
-	 * @return	string		the wrapped title
-	 */
-	function wrapTitle($title,$v)	{
-		if($v['uid']>0) {
-			if (in_array($v['uid'],$this->TCEforms_nonSelectableItemsArray)) {
-				return '<a href="#" title="'.$v['note'].'"><span style="color:#999;cursor:default;">'.$title.'</span></a>';
-			} else {
-				$hrefTitle = $v['note'];
-				$aOnClick = 'setFormValueFromBrowseWin(\''.$this->TCEforms_itemFormElName.'\','.$v['uid'].',\''.$title.'\'); return false;';
-				return '<a href="#" onclick="'.htmlspecialchars($aOnClick).'" title="'.htmlentities($v['note']).'">'.$title.'</a>';
-			}
-		} else {
-			return $title;
-		}
-	}
-}
 
 	/**
 	 * this class displays a tree selector with nested tt_products categories.
@@ -230,10 +198,13 @@ class tx_mbiproductscategories_treeview {
 					$treeViewObj->parentField = 'parent_category'; //$TCA[$config['foreign_table']]['ctrl']['treeParentField'];
 					$treeViewObj->expandAll = 1;
 					$treeViewObj->expandFirst = 1;
-					$treeViewObj->fieldArray = array('uid','title','note'); // those fields will be filled to the array $treeViewObj->tree
+					$treeViewObj->fieldArray = array('uid','title','subtitle'); // those fields will be filled to the array $treeViewObj->tree
 
 					$treeViewObj->ext_IconMode = '1'; // no context menu on icons
 					$treeViewObj->title = $LANG->sL($TCA[$config['foreign_table']]['ctrl']['title']);
+					$pid_list = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][MBI_PRODUCTS_CATEGORIES_EXTkey]['pid_list'];
+					$treeViewObj->clause = ($pid_list ? ' AND tt_products_cat.pid IN ('.$pid_list.') ' : '');
+					$treeViewObj->orderByFields = str_replace('ORDER BY ','',$TCA[$config['foreign_table']]['ctrl']['default_sortby']);
 
 					$treeViewObj->TCEforms_itemFormElName = $PA['itemFormElName'];
 					if ($table==$config['foreign_table']) {
