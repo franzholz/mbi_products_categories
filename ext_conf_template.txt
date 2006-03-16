@@ -1,0 +1,4 @@
+
+  # cat=basic; type=string; label=Page Id list: Specify the page ids, separated by comma, from which the categories should be taken.
+pid_list = 
+
