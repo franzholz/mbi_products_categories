@@ -132,10 +132,10 @@ class tx_mbiproductscategories_treeview {
 				}
 					// get categories of the translation original
 				$catres = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query (
-					 $config['foreign_table'].'.uid,'.$config['foreign_table'].'.title,mbi_products_categories_mm.sorting AS mmsorting', 
-					  $table, 'mbi_products_categories_mm', 
+					 $config['foreign_table'].'.uid,'.$config['foreign_table'].'.title,tx_mbiproductscategories_mm.sorting AS mmsorting', 
+					  $table, 'tx_mbiproductscategories_mm', 
 					  $config['foreign_table'], 
-					  ' AND mbi_products_categories_mm.uid_local='.$row['l18n_parent'].$SPaddWhere,
+					  ' AND tx_mbiproductscategories_mm.uid_local='.$row['l18n_parent'].$SPaddWhere,
 					  '', 
 					  'mmsorting');
 				$categories = array();
@@ -195,10 +195,10 @@ class tx_mbiproductscategories_treeview {
 					$treeViewObj->table = $config['foreign_table'];
 					$treeViewObj->init($SPaddWhere);
 					$treeViewObj->backPath = $this->pObj->backPath;
-					$treeViewObj->parentField = 'parent_category'; //$TCA[$config['foreign_table']]['ctrl']['treeParentField'];
+					$treeViewObj->parentField = $TCA[$config['foreign_table']]['ctrl']['treeParentField'];
 					$treeViewObj->expandAll = 1;
 					$treeViewObj->expandFirst = 1;
-					$treeViewObj->fieldArray = array('uid','title','subtitle'); // those fields will be filled to the array $treeViewObj->tree
+					$treeViewObj->fieldArray = array('uid','title'); // those fields will be filled to the array $treeViewObj->tree
 
 					$treeViewObj->ext_IconMode = '1'; // no context menu on icons
 					$treeViewObj->title = $LANG->sL($TCA[$config['foreign_table']]['ctrl']['title']);
@@ -216,6 +216,7 @@ class tx_mbiproductscategories_treeview {
 							$treeViewObj->TCEforms_nonSelectableItemsArray[] = $k;
 						}
 					}
+
 
 						// get default items
 					$defItems = array();
@@ -467,10 +468,10 @@ class tx_mbiproductscategories_treeview {
 					// get categories of the record in db
 				$uidField = $row['l18n_parent']&&$row['sys_language_uid']?$row['l18n_parent']:$row['uid'];
 				$catres = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query (
-					 $config['foreign_table'].'.uid,'.$config['foreign_table'].'.title,mbi_products_categories_mm.sorting AS mmsorting', 
-					  $table, 'mbi_products_categories_mm', 
+					 $config['foreign_table'].'.uid,'.$config['foreign_table'].'.title,tx_mbiproductscategories_mm.sorting AS mmsorting', 
+					  $table, 'tx_mbiproductscategories_mm', 
 					  $config['foreign_table'], 
-					  ' AND mbi_products_categories_mm.uid_local='.$uidField.$SPaddWhere,
+					  ' AND tx_mbiproductscategories_mm.uid_local='.$uidField.$SPaddWhere,
 					  '', 
 					  'mmsorting');
 

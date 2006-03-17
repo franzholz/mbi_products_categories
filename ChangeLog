@@ -3,7 +3,7 @@
 	* use the pid_list for the where clause
 
 2006-02-11 Franz Holzinger  <kontakt@fholzinger.com>
-	* Make it independant from the tt_products and tt_products_cat tables
+	* Make it independent from the tt_products and tt_products_cat tables
 
 2005-09-16 Christian Lang  <christian.lang@mbi.de>
 	* Initial release

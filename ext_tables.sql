@@ -6,9 +6,9 @@ CREATE TABLE tt_products_cat (
 );
 
 #
-# Table structure for table 'mbi_products_categories_mm'
+# Table structure for table 'tx_mbiproductscategories_mm'
 #
-#CREATE TABLE mbi_products_categories_mm (
+#CREATE TABLE tx_mbiproductscategories_mm (
 #  uid_local int(11) unsigned DEFAULT '0' NOT NULL,
 #  uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
 #  tablenames varchar(30) DEFAULT '' NOT NULL,
