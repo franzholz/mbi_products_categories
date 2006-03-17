@@ -6,6 +6,13 @@ CREATE TABLE tt_products_cat (
 );
 
 #
+# Table structure for table 'tt_products'
+#
+CREATE TABLE tt_products_cat (
+	subtitle mediumtext NOT NULL
+);
+
+#
 # Table structure for table 'tx_mbiproductscategories_mm'
 #
 #CREATE TABLE tx_mbiproductscategories_mm (
