@@ -2,14 +2,8 @@
 # Table structure for table 'tt_products_cat'
 #
 CREATE TABLE tt_products_cat (
-	parent_category int(11) DEFAULT '0' NOT NULL
-);
-
-#
-# Table structure for table 'tt_products'
-#
-CREATE TABLE tt_products_cat (
 	subtitle mediumtext NOT NULL
+	parent_category int(11) DEFAULT '0' NOT NULL
 );
 
 #
