@@ -1,3 +1,6 @@
+2010-03-13 Franz Holzinger  <franz@ttproducts.de>
+	* add manual
+
 2006-03-15 Franz Holzinger  <kontakt@fholzinger.com>
 	* Sort the categories by the 'default_sortby' field of TCA['tt_products_cat']['ctrl']
 	* use the pid_list for the where clause

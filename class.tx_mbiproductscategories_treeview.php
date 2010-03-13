@@ -24,13 +24,13 @@
 /**
  * This function displays a selector with nested categories.
  * The original code is borrowed from the extension "Digital Asset Management" (tx_dam) author: René Fritz <r.fritz@colorcube.de>
- * Modified by Christian Lang <christian.lang@mbi.de> for Products and Franz Holzinger for all other extensions. 
+ * Modified by Christian Lang <christian.lang@mbi.de> for Products and Franz Holzinger for all other extensions.
  *
  * $Id$
  *
  * @author	Rupert Germann <rupi@gmx.li>
  * @author	Christian Lang <christian.lang@mbi.de>
- * @author	Franz Holzinger <kontakt@fholzinger.com>
+ * @author	Franz Holzinger <franz@ttproducts.de>
  * @package TYPO3
  * @subpackage mbi_products_categories
  */
@@ -117,14 +117,6 @@ class tx_mbiproductscategories_treeview {
 		if ($maxitems<=1 AND !$config['treeView'])	{
 		} else {
 			if ($row['sys_language_uid'] && $row['l18n_parent'] ) { // the current record is a translation of another record
-/* 				if ($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['tt_news']) { // get tt_news extConf array */
-/* 					$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['tt_news']); */
-/* 				} */
-/* 				if ($confArr['useStoragePid']) { */
-/* 					$TSconfig = t3lib_BEfunc::getTCEFORM_TSconfig($table,$row); */
-/* 					$storagePid = $TSconfig['_STORAGE_PID']?$TSconfig['_STORAGE_PID']:0; */
-/* 					$SPaddWhere = ' AND tt_news_cat.pid IN (' . $storagePid . ')'; */
-/* 				} */
 				$errorMsg = array();
 				$notAllowedItems = array();
 				if ($GLOBALS['BE_USER']->getTSConfigVal('options.useListOfAllowedItems') && !$GLOBALS['BE_USER']->isAdmin()) {
@@ -132,11 +124,11 @@ class tx_mbiproductscategories_treeview {
 				}
 					// get categories of the translation original
 				$catres = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query (
-					 $config['foreign_table'].'.uid,'.$config['foreign_table'].'.title,tx_mbiproductscategories_mm.sorting AS mmsorting', 
-					  $table, 'tx_mbiproductscategories_mm', 
-					  $config['foreign_table'], 
+					 $config['foreign_table'].'.uid,'.$config['foreign_table'].'.title,tx_mbiproductscategories_mm.sorting AS mmsorting',
+					  $table, 'tx_mbiproductscategories_mm',
+					  $config['foreign_table'],
 					  ' AND tx_mbiproductscategories_mm.uid_local='.$row['l18n_parent'].$SPaddWhere,
-					  '', 
+					  '',
 					  'mmsorting');
 				$categories = array();
 				$NACats = array();
@@ -175,15 +167,6 @@ class tx_mbiproductscategories_treeview {
 				if($config['treeView'] AND $config['foreign_table']) {
 					global $TCA, $LANG;
 
-/* 					if ($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['tt_news']) { // get tt_news extConf array */
-/* 						$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['tt_news']); */
-/* 					} */
-/* 					if ($confArr['useStoragePid']) { */
-/* 						$TSconfig = t3lib_BEfunc::getTCEFORM_TSconfig($table,$row); */
-/* 						$storagePid = $TSconfig['_STORAGE_PID']?$TSconfig['_STORAGE_PID']:0; */
-/* 						$SPaddWhere = ' AND tt_news_cat.pid IN (' . $storagePid . ')'; */
-
-/* 					} */
 					if ($GLOBALS['BE_USER']->getTSConfigVal('options.useListOfAllowedItems') && !$GLOBALS['BE_USER']->isAdmin()) {
 						$notAllowedItems = $this->getNotAllowedItems($PA,$SPaddWhere);
 					}
@@ -245,9 +228,6 @@ class tx_mbiproductscategories_treeview {
 					$errorMsg = $this->findRecursiveCategories($PA,$row,$table,$storagePid,$treeViewObj->ids) ;
 
 					$width = 280; // default width for the field with the category tree
-/* 					if (intval($confArr['categoryTreeWidth'])) { // if a value is set in extConf take this one. */
-/* 						$width = t3lib_div::intInRange($confArr['categoryTreeWidth'],1,600); */
-/* 					} else */
 					if ($GLOBALS['CLIENT']['BROWSER']=='msie') { // to suppress the unneeded horizontal scrollbar IE needs a width of at least 320px
 						$width = 320;
 					}
@@ -292,9 +272,6 @@ class tx_mbiproductscategories_treeview {
 					$itemArray[$tk]=implode('|',$tvP);
 				}
 				$sWidth = 150; // default width for the left field of the category select
-/* 				if (intval($confArr['categorySelectedWidth'])) { */
-/* 					$sWidth = t3lib_div::intInRange($confArr['categorySelectedWidth'],1,600); */
-/* 				} */
 				$params=array(
 					'size' => $size,
 					'autoSizeMax' => t3lib_div::intInRange($config['autoSizeMax'],0),
@@ -318,8 +295,8 @@ class tx_mbiproductscategories_treeview {
 		}
 
 		return $this->NA_Items.implode($errorMsg,chr(10)).$item;
-
 	}
+
 
 	/**
 	 * This function checks if there are categories selectable that are not allowed for this BE user and if the current record has
@@ -361,9 +338,7 @@ class tx_mbiproductscategories_treeview {
 			}
 		}
 
-
 		return $itemArr;
-
 	}
 
 	/**
@@ -379,7 +354,7 @@ class tx_mbiproductscategories_treeview {
 	function findRecursiveCategories ($PA,$row,$table,$storagePid,$treeIds) {
 			// Field configuration from TCA:
 		$config = $PA['fieldConf']['config'];
-		
+
 		$errorMsg = array();
 		if ($table == 'tt_content' && $row['CType']=='list' && $row['list_type']==9) { // = tt_content element which inserts plugin of the extension
 			$cfgArr = t3lib_div::xml2array($row['pi_flexform']);
@@ -455,24 +430,16 @@ class tx_mbiproductscategories_treeview {
 
 		if ($GLOBALS['BE_USER']->getTSConfigVal('options.useListOfAllowedItems') && !$GLOBALS['BE_USER']->isAdmin()) {
 			$notAllowedItems = array();
-/* 			if ($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['tt_news']) { // get tt_news extConf array */
-/* 				$confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['tt_news']); */
-/* 			} */
-/* 			if ($confArr['useStoragePid']) { */
-/* 				$TSconfig = t3lib_BEfunc::getTCEFORM_TSconfig($table,$row); */
-/* 				$storagePid = $TSconfig['_STORAGE_PID']?$TSconfig['_STORAGE_PID']:0; */
-/* 				$SPaddWhere = ' AND tt_news_cat.pid IN (' . $storagePid . ')'; */
-/* 			} */
 			$notAllowedItems = $this->getNotAllowedItems($PA,$SPaddWhere);
 			if ($notAllowedItems[0]) {
 					// get categories of the record in db
 				$uidField = $row['l18n_parent']&&$row['sys_language_uid']?$row['l18n_parent']:$row['uid'];
 				$catres = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query (
-					 $config['foreign_table'].'.uid,'.$config['foreign_table'].'.title,tx_mbiproductscategories_mm.sorting AS mmsorting', 
-					  $table, 'tx_mbiproductscategories_mm', 
-					  $config['foreign_table'], 
+					 $config['foreign_table'].'.uid,'.$config['foreign_table'].'.title,tx_mbiproductscategories_mm.sorting AS mmsorting',
+					  $table, 'tx_mbiproductscategories_mm',
+					  $config['foreign_table'],
 					  ' AND tx_mbiproductscategories_mm.uid_local='.$uidField.$SPaddWhere,
-					  '', 
+					  '',
 					  'mmsorting');
 
 				$NACats = array();

@@ -27,7 +27,7 @@
  *
  * @author	Rupert Germann <rupi@gmx.li>
  * @author	Christian Lang <christian.lang@mbi.de>
- * @author	Franz Holzinger <kontakt@fholzinger.com>
+ * @author	Franz Holzinger <franz@ttproducts.de>
  * @package TYPO3
  * @subpackage mbi_products_categories
  */
@@ -97,7 +97,7 @@ class tx_mbiproductscategories_tceFunc_selectTreeView extends t3lib_treeview {
 
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mbi_products_categories/class.tx_mbiproductscategories_tcefunc_selecttreeview.php'])    {
-    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mbi_products_categories/class.tx_mbiproductscategories_tcefunc_selecttreeview.php']);
+if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mbi_products_categories/lib/class.tx_mbiproductscategories_tcefunc_selecttreeview.php'])    {
+    include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/mbi_products_categories/lib/class.tx_mbiproductscategories_tcefunc_selecttreeview.php']);
 }
 ?>
