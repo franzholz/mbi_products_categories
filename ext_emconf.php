@@ -1,31 +1,31 @@
 <?php
 
 ########################################################################
-# Extension Manager/Repository config file for ext: "mbi_products_categories"
+# Extension Manager/Repository config file for ext "mbi_products_categories".
 #
-# Auto generated 05-08-2009 10:44
+# Auto generated 06-04-2010 17:41
 #
 # Manual updates:
-# Only the data in the array - anything else is removed by next write.
-# "version" and "dependencies" must not be touched!
+# Only the data in the array - everything else is removed by next
+# writing. "version" and "dependencies" must not be touched!
 ########################################################################
 
 $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Shop Categories',
 	'description' => 'Enables hierarchical categories for products. Works with every version of tt_products.',
 	'category' => 'misc',
-	'shy' => '',
-	'version' => '0.1.1',
+	'shy' => 0,
+	'version' => '0.1.2',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
 	'loadOrder' => '',
 	'module' => '',
 	'state' => 'alpha',
-	'uploadfolder' => '',
+	'uploadfolder' => 0,
 	'createDirs' => '',
 	'modify_tables' => '',
-	'clearCacheOnLoad' => '',
+	'clearcacheonload' => 0,
 	'lockType' => '',
 	'author' => 'Christian Lang',
 	'author_email' => 'christian.lang@mbi.de',
@@ -42,7 +42,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:11:{s:9:"ChangeLog";s:4:"5220";s:43:"class.tx_mbiproductscategories_treeview.php";s:4:"d77b";s:21:"ext_conf_template.txt";s:4:"6690";s:12:"ext_icon.gif";s:4:"f852";s:17:"ext_localconf.php";s:4:"1383";s:14:"ext_tables.php";s:4:"3981";s:14:"ext_tables.sql";s:4:"da89";s:16:"locallang_db.php";s:4:"9eb9";s:19:"doc/wizard_form.dat";s:4:"aca8";s:20:"doc/wizard_form.html";s:4:"fc5a";s:61:"lib/class.tx_mbiproductscategories_tcefunc_selecttreeview.php";s:4:"3cd3";}',
+	'_md5_values_when_last_written' => 'a:10:{s:9:"ChangeLog";s:4:"37b0";s:43:"class.tx_mbiproductscategories_treeview.php";s:4:"304c";s:21:"ext_conf_template.txt";s:4:"6690";s:12:"ext_icon.gif";s:4:"b6f5";s:17:"ext_localconf.php";s:4:"4607";s:14:"ext_tables.php";s:4:"eff9";s:14:"ext_tables.sql";s:4:"da89";s:16:"locallang_db.php";s:4:"9eb9";s:14:"doc/manual.sxw";s:4:"955d";s:61:"lib/class.tx_mbiproductscategories_tcefunc_selecttreeview.php";s:4:"e318";}',
 );
 
 ?>
