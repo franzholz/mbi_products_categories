@@ -1,3 +1,6 @@
+2010-09-25 Franz Holzinger  <franz@ttproducts.de>
+	* fix bug with wrongly detected recursive categories
+
 2010-03-13 Franz Holzinger  <franz@ttproducts.de>
 	* add manual
 

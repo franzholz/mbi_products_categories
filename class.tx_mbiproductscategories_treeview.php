@@ -223,7 +223,6 @@ class tx_mbiproductscategories_treeview {
 							<td>'.$this->pObj->sL($config['itemsHeader']).'&nbsp;</td><td>'.implode($defItems,'<br />').'</td>
 							</tr></table>';
 					}
-
 						// find recursive categories or "storagePid" related errors and if there are some, add a message to the $errorMsg array.
 					$errorMsg = $this->findRecursiveCategories($PA,$row,$table,$storagePid,$treeViewObj->ids) ;
 
@@ -356,7 +355,7 @@ class tx_mbiproductscategories_treeview {
 		$config = $PA['fieldConf']['config'];
 
 		$errorMsg = array();
-		if ($table == 'tt_content' && $row['CType']=='list' && $row['list_type']==9) { // = tt_content element which inserts plugin of the extension
+		if ($table == 'tt_content' && $row['CType']=='list' && in_array($row['list_type'], array(5,9))) { // = tt_content element which inserts plugin of the extension
 			$cfgArr = t3lib_div::xml2array($row['pi_flexform']);
 			if (is_array($cfgArr) && is_array($cfgArr['data']['sDEF']['lDEF']) && $cfgArr['data']['sDEF']['lDEF']['categorySelection']) {
 				$rcList = $this->compareCategoryVals ($treeIds,$cfgArr['data']['sDEF']['lDEF']['categorySelection']['vDEF']);
