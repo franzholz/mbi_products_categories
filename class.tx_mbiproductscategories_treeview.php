@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2005 Rupert Germann <rupi@gmx.li>
+*  (c) 2011 René Fritz <r.fritz@colorcube.de>
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -24,7 +24,7 @@
 /**
  * This function displays a selector with nested categories.
  * The original code is borrowed from the extension "Digital Asset Management" (tx_dam) author: René Fritz <r.fritz@colorcube.de>
- * Modified by Christian Lang <christian.lang@mbi.de> for Products and Franz Holzinger for all other extensions.
+ * Modified by Christian Lang <christian.lang@mbi.de> for tt_products and Franz Holzinger for all other extensions.
  *
  * $Id$
  *
@@ -61,6 +61,8 @@ require_once(PATH_BE_mbiproductscategories.'lib/class.tx_mbiproductscategories_t
 	 */
 class tx_mbiproductscategories_treeview {
 
+	var $pid_list; // list of allowed page ids
+
 	/**
 	 * Generation of TCEform elements of the type "select"
 	 * This will render a selector box element, or possibly a special construction with two selector boxes. That depends on configuration.
@@ -75,6 +77,12 @@ class tx_mbiproductscategories_treeview {
 		$row = $PA['row'];
 
 		$this->pObj = &$PA['pObj'];
+		$this->pid_list = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][MBI_PRODUCTS_CATEGORIES_EXTkey]['pid_list'];
+
+		if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][MBI_PRODUCTS_CATEGORIES_EXTkey]['useStoragePid']) {
+			$TSconfig = t3lib_BEfunc::getTCEFORM_TSconfig($table, $row);
+			$this->pid_list = $TSconfig['_STORAGE_PID'];
+		}
 
 			// Field configuration from TCA:
 		$config = $PA['fieldConf']['config'];
@@ -119,9 +127,15 @@ class tx_mbiproductscategories_treeview {
 			if ($row['sys_language_uid'] && $row['l18n_parent'] ) { // the current record is a translation of another record
 				$errorMsg = array();
 				$notAllowedItems = array();
+
+				if ($this->pid_list) {
+					$SPaddWhere = ' AND '.$config['foreign_table'].'.pid IN (' . $this->pid_list . ')';
+				}
+
 				if ($GLOBALS['BE_USER']->getTSConfigVal('options.useListOfAllowedItems') && !$GLOBALS['BE_USER']->isAdmin()) {
 					$notAllowedItems = $this->getNotAllowedItems($PA,$SPaddWhere);
 				}
+
 					// get categories of the translation original
 				$catres = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query (
 					 $config['foreign_table'].'.uid,'.$config['foreign_table'].'.title,tx_mbiproductscategories_mm.sorting AS mmsorting',
@@ -185,8 +199,8 @@ class tx_mbiproductscategories_treeview {
 
 					$treeViewObj->ext_IconMode = '1'; // no context menu on icons
 					$treeViewObj->title = $LANG->sL($TCA[$config['foreign_table']]['ctrl']['title']);
-					$pid_list = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][MBI_PRODUCTS_CATEGORIES_EXTkey]['pid_list'];
-					$treeViewObj->clause = ($pid_list ? ' AND tt_products_cat.pid IN ('.$pid_list.') ' : '');
+					$treeViewObj->clause = ($this->pid_list ? ' AND tt_products_cat.pid IN (' . $this->pid_list . ') ' : '');
+
 					$treeViewObj->orderByFields = str_replace('ORDER BY ','',$TCA[$config['foreign_table']]['ctrl']['default_sortby']);
 
 					$treeViewObj->TCEforms_itemFormElName = $PA['itemFormElName'];
@@ -350,30 +364,33 @@ class tx_mbiproductscategories_treeview {
 	 * @param	array		$treeIds: array with the ids of the categories in the tree
 	 * @return	array		error messages
 	 */
-	function findRecursiveCategories ($PA,$row,$table,$storagePid,$treeIds) {
+	function findRecursiveCategories ($PA, $row, $table, $storagePid, $treeIds) {
 			// Field configuration from TCA:
 		$config = $PA['fieldConf']['config'];
 
 		$errorMsg = array();
-		if ($table == 'tt_content' && $row['CType']=='list' && in_array($row['list_type'], array(5,9))) { // = tt_content element which inserts plugin of the extension
+
+		if ($table == 'tt_content' && $row['CType'] == 'list' && in_array($row['list_type'], array(5,9))) { // = tt_content element which inserts plugin of the extension
 			$cfgArr = t3lib_div::xml2array($row['pi_flexform']);
 			if (is_array($cfgArr) && is_array($cfgArr['data']['sDEF']['lDEF']) && $cfgArr['data']['sDEF']['lDEF']['categorySelection']) {
-				$rcList = $this->compareCategoryVals ($treeIds,$cfgArr['data']['sDEF']['lDEF']['categorySelection']['vDEF']);
+				$rcList = $this->compareCategoryVals($treeIds,$cfgArr['data']['sDEF']['lDEF']['categorySelection']['vDEF']);
 			}
 		} elseif ($table == $config['foreign_table'] || $table == $PA['table']) {
+
 			if ($table == $config['foreign_table'] && $row['pid'] == $storagePid && intval($row['uid']) && !in_array($row['uid'],$treeIds))	{ // if the selected category is not empty and not in the array of tree-uids it seems to be part of a chain of recursive categories
 				$recursionMsg = 'RECURSIVE CATEGORIES DETECTED!! <br />This record is part of a chain of recursive categories. The affected categories will not be displayed in the category tree.  You should remove the parent category of this record to prevent this.';
 			}
 			if ($table == $PA['table'] && $row[$PA['field']]) { // find recursive categories in the extension's db-record
-				$rcList = $this->compareCategoryVals ($treeIds,$row[$PA['field']]);
+				$rcList = $this->compareCategoryVals($treeIds, $row[$PA['field']]);
 			}
 			// in case of localized records this doesn't work
 			if ($storagePid && $row['pid'] != $storagePid && $table == $config['foreign_table']) { // if a storagePid is defined but the current category is not stored in storagePid
 				$errorMsg[] = '<p style="padding:10px;"><img src="gfx/icon_warning.gif" class="absmiddle" alt="" height="16" width="18"><strong style="color:red;"> Warning:</strong><br />The extension using table \''.$PA['table'].'\' is configured to display categories only from the "General record storage page" (GRSP). The current category is not located in the GRSP and will so not be displayed. To solve this you should either define a GRSP or disable "Use StoragePid" in the extension manager.</p>';
 			}
 		}
+
 		if (strlen($rcList)) {
-			$recursionMsg = 'RECURSIVE CATEGORIES DETECTED!! <br />This record has the following recursive categories assigned: '.$rcList.'<br />Recursive categories will not be shown in the category tree and will therefore not be selectable. ';
+			$recursionMsg = 'RECURSIVE OR UNALLOWED CATEGORIES DETECTED!! <br />This record has the following recursive categories assigned: '.$rcList.'<br />Recursive categories will not be shown in the category tree and will therefore not be selectable. ';
 
 			if ($table == $PA['table']) {
 				$recursionMsg .= 'To solve this problem mark these categories in the left select field, click on "edit category" and clear the field "parent category" of the recursive category.';
@@ -382,6 +399,7 @@ class tx_mbiproductscategories_treeview {
 			}
 		}
 		if ($recursionMsg) $errorMsg[] = '<table class="warningbox" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td><img src="gfx/icon_fatalerror.gif" class="absmiddle" alt="" height="16" width="18">'.$recursionMsg.'</td></tr></tbody></table>';
+
 		return $errorMsg;
 	}
 
@@ -394,16 +412,19 @@ class tx_mbiproductscategories_treeview {
 	 * @param	string		$catString: the selected categories in a string (format: uid|title,uid|title,...)
 	 * @return	string		list of recursive categories
 	 */
-	function compareCategoryVals ($treeIds,$catString) {
+	function compareCategoryVals ($treeIds, $catString) {
+
 		$recursiveCategories = array();
 		$showncats = implode($treeIds,','); // the displayed categories (tree)
 		$catvals = explode(',',$catString); // categories of the current record (left field)
+
 		foreach ($catvals as $k) {
 			$c = explode('|',$k);
 			if(!t3lib_div::inList($showncats,$c[0])) {
 				$recursiveCategories[]=$c;
 			}
 		}
+
 		if ($recursiveCategories[0])  {
 			$rcArr = array();
 			foreach ($recursiveCategories as $key => $cat) {
@@ -423,13 +444,20 @@ class tx_mbiproductscategories_treeview {
 	 * @return	string		the HTML code for the field and the error message
 	 */
 	function displayTypeFieldCheckCategories(&$PA, $fobj)    {
+		$SPaddWhere = '';
 		$table = $PA['table'];
 		$field = $PA['field'];
 		$row = $PA['row'];
 
 		if ($GLOBALS['BE_USER']->getTSConfigVal('options.useListOfAllowedItems') && !$GLOBALS['BE_USER']->isAdmin()) {
+
 			$notAllowedItems = array();
-			$notAllowedItems = $this->getNotAllowedItems($PA,$SPaddWhere);
+			if ($this->pid_list) {
+ 				$SPaddWhere = ' AND '.$config['foreign_table'].'.pid IN (' . $this->pid_list . ')';
+ 			}
+
+			$notAllowedItems = $this->getNotAllowedItems($PA, $SPaddWhere);
+
 			if ($notAllowedItems[0]) {
 					// get categories of the record in db
 				$uidField = $row['l18n_parent']&&$row['sys_language_uid']?$row['l18n_parent']:$row['uid'];

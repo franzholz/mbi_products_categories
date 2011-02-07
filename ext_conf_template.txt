@@ -1,4 +1,6 @@
 
   # cat=basic; type=string; label=Page Id list: Specify the page ids, separated by comma, from which the categories should be taken.
-pid_list = 
+pid_list =
+  # cat=basic; type=boolean; label=Use storage page id: Set this, if you want to use the page ids set in the General Record Storage page of the page properties.
+useStoragePid = 0
 

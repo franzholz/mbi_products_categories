@@ -1,3 +1,6 @@
+2011-02-07 Franz Holzinger  <franz@ttproducts.de>
+	* new feature: select the general record storage from the page property resources for the categories
+
 2010-09-25 Franz Holzinger  <franz@ttproducts.de>
 	* fix bug with wrongly detected recursive categories
 

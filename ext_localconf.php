@@ -2,7 +2,7 @@
 if (!defined ('TYPO3_MODE'))	die ('Access denied.');
 
 if (!defined ('MBI_PRODUCTS_CATEGORIES_EXTkey')) {
-	define('MBI_PRODUCTS_CATEGORIES_EXTkey',$_EXTKEY);
+	define('MBI_PRODUCTS_CATEGORIES_EXTkey', $_EXTKEY);
 }
 
 
@@ -37,7 +37,7 @@ if (t3lib_extMgm::isLoaded('tt_products')) {
 		define('PATH_BE_table', t3lib_extMgm::extPath(TABLE_EXTkey));
 	}
 
-	if (TYPO3_MODE=='FE')	{ // hooks for FE extensions
+	if (TYPO3_MODE=='FE') { // hooks for FE extensions
 		// Hook for extending tt_products TCA
 		$TYPO3_CONF_VARS['EXTCONF'][TT_PRODUCTS_EXTkey]['extendingTCA'][] = MBI_PRODUCTS_CATEGORIES_EXTkey;
 	}
@@ -50,6 +50,9 @@ if (!defined ('MBI_PRODUCTS_CATEGORIES_DIV_DLOG')) {
 }
 
 $_EXTCONF = unserialize($_EXTCONF);    // unserializing the configuration so we can use it here:
+$GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][MBI_PRODUCTS_CATEGORIES_EXTkey] = $_EXTCONF;
+
+
 $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$_EXTKEY]['pid_list'] = $_EXTCONF['pid_list'] ? $_EXTCONF['pid_list'] : '';
 
 
