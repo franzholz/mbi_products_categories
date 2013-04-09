@@ -3,7 +3,7 @@
 ########################################################################
 # Extension Manager/Repository config file for ext "mbi_products_categories".
 #
-# Auto generated 27-09-2010 11:42
+# Auto generated 14-02-2012 16:52
 #
 # Manual updates:
 # Only the data in the array - everything else is removed by next
@@ -15,7 +15,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'description' => 'Enables hierarchical categories for products. Works with every version of tt_products.',
 	'category' => 'misc',
 	'shy' => 0,
-	'version' => '0.1.3',
+	'version' => '0.1.4',
 	'dependencies' => '',
 	'conflicts' => '',
 	'priority' => '',
@@ -42,7 +42,7 @@ $EM_CONF[$_EXTKEY] = array(
 		'suggests' => array(
 		),
 	),
-	'_md5_values_when_last_written' => 'a:10:{s:9:"ChangeLog";s:4:"17e9";s:43:"class.tx_mbiproductscategories_treeview.php";s:4:"4d6f";s:21:"ext_conf_template.txt";s:4:"6690";s:12:"ext_icon.gif";s:4:"b6f5";s:17:"ext_localconf.php";s:4:"4607";s:14:"ext_tables.php";s:4:"eff9";s:14:"ext_tables.sql";s:4:"da89";s:16:"locallang_db.php";s:4:"9eb9";s:14:"doc/manual.sxw";s:4:"955d";s:61:"lib/class.tx_mbiproductscategories_tcefunc_selecttreeview.php";s:4:"e318";}',
+	'_md5_values_when_last_written' => 'a:10:{s:9:"ChangeLog";s:4:"2c93";s:43:"class.tx_mbiproductscategories_treeview.php";s:4:"2356";s:21:"ext_conf_template.txt";s:4:"4324";s:12:"ext_icon.gif";s:4:"b6f5";s:17:"ext_localconf.php";s:4:"8fce";s:14:"ext_tables.php";s:4:"eff9";s:14:"ext_tables.sql";s:4:"da89";s:16:"locallang_db.php";s:4:"9eb9";s:14:"doc/manual.sxw";s:4:"91af";s:61:"lib/class.tx_mbiproductscategories_tcefunc_selecttreeview.php";s:4:"e318";}',
 );
 
 ?>
