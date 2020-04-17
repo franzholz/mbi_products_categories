@@ -1,12 +1,15 @@
+2020-04-17 Franz Holzinger  <franz@tt_products.de>
+	* bugfix for TYPO3 9.5: The configuration has not been read in correctly
+
 2020-02-15 Franz Holzinger  <franz@tt_products.de>
 	* modifications for TYPO3 9.5
 	* remove foreigntable and parentfield. It must always be tt_products_cat and parent_category. Make a fork of this extension if you need it differently.
 	* The field parent_category of tt_products_cat must already be present in SQL and TCA by the extension tt_products.
 
-2017-04-08 Franz Holzinger  <kontakt@fholzinger.com>
+2017-04-08 Franz Holzinger  <franz@tt_products.de>
     * modifications for TYPO3 8.x. Add composer.json.
 
-2013-09-23 Franz Holzinger  <kontakt@fholzinger.com>
+2013-09-23 Franz Holzinger  <franz@tt_products.de>
 	* modifications for TYPO3 6.1
 
 2006-03-15 Franz Holzinger  <kontakt@fholzinger.com>
