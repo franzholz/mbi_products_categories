@@ -1,0 +1,55 @@
+In TYPO3 <= 6.2.12 you must apply the bugfix #63047: TreeView with non pages isInWebMount wrong parameter because of Bugfix #18797
+
+https://forge.typo3.org/projects/typo3cms-core/repository/revisions/1947837ce044e179883a5c8355683fb35c44e081
+
+https://forge.typo3.org/projects/typo3cms-core/repository/revisions/1947837ce044e179883a5c8355683fb35c44e081/diff/typo3/sysext/backend/Classes/Tree/View/AbstractTreeView.php
+
+
+-------------------------------
+
+
+commit 1947837ce044e179883a5c8355683fb35c44e081
+Author: Andreas Allacher <andreas.allacher@gmx.at>
+Date:   Fri Feb 20 09:07:51 2015 +0100
+
+    [BUGFIX] AbstractTreeView correct permission handling with non pages
+
+    AbstractTreeView now checks correctly, if a user has permission
+    to access elements even if they are not pages.
+
+    Without this change it was always assumed that the "uid" of the record
+    is the page uid. However, that is only valid for pages.
+
+    Change-Id: I4dd4970fb529ac6ab6f3c79d993456feed225fea
+    Resolves: #63047
+    Releases: master, 6.2
+    Reviewed-on: http://review.typo3.org/37034
+    Reviewed-by: Markus Klein <klein.t3@reelworx.at>
+    Tested-by: Markus Klein <klein.t3@reelworx.at>
+    Reviewed-by: Andreas Fernandez <andreas.fernandez@aspedia.de>
+    Tested-by: Andreas Fernandez <andreas.fernandez@aspedia.de>
+
+diff --git a/typo3/sysext/backend/Classes/Tree/View/AbstractTreeView.php b/typo3/sysext/backend/Classes/Tree/View/AbstractTreeView.php
+index f6191af..e3b2752 100644
+--- a/typo3/sysext/backend/Classes/Tree/View/AbstractTreeView.php
++++ b/typo3/sysext/backend/Classes/Tree/View/AbstractTreeView.php
+@@ -145,7 +145,7 @@ abstract class AbstractTreeView {
+ 	 * @see addField()
+ 	 * @var array
+ 	 */
+-	public $fieldArray = array('uid', 'title');
++	public $fieldArray = array('uid', 'pid', 'title');
+
+ 	/**
+ 	 * List of other fields which are ALLOWED to set (here, based on the "pages" table!)
+@@ -747,7 +747,8 @@ abstract class AbstractTreeView {
+ 		$idH = array();
+ 		// Traverse the records:
+ 		while ($crazyRecursionLimiter > 0 && ($row = $this->getDataNext($res, $subCSSclass))) {
+-			if (!$GLOBALS['BE_USER']->isInWebMount($row['uid'])) {
++			$pageUid = ($this->table === 'pages') ? $row['uid'] : $row['pid'];
++			if (!$GLOBALS['BE_USER']->isInWebMount($pageUid)) {
+ 				// Current record is not within web mount => skip it
+ 				continue;
+ 			}
+

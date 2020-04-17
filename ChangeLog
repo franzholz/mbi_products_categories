@@ -1,11 +1,13 @@
-2011-02-07 Franz Holzinger  <franz@ttproducts.de>
-	* new feature: select the general record storage from the page property resources for the categories
+2020-02-15 Franz Holzinger  <franz@tt_products.de>
+	* modifications for TYPO3 9.5
+	* remove foreigntable and parentfield. It must always be tt_products_cat and parent_category. Make a fork of this extension if you need it differently.
+	* The field parent_category of tt_products_cat must already be present in SQL and TCA by the extension tt_products.
 
-2010-09-25 Franz Holzinger  <franz@ttproducts.de>
-	* fix bug with wrongly detected recursive categories
+2017-04-08 Franz Holzinger  <kontakt@fholzinger.com>
+    * modifications for TYPO3 8.x. Add composer.json.
 
-2010-03-13 Franz Holzinger  <franz@ttproducts.de>
-	* add manual
+2013-09-23 Franz Holzinger  <kontakt@fholzinger.com>
+	* modifications for TYPO3 6.1
 
 2006-03-15 Franz Holzinger  <kontakt@fholzinger.com>
 	* Sort the categories by the 'default_sortby' field of TCA['tt_products_cat']['ctrl']

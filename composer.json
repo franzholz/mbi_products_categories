@@ -1,0 +1,44 @@
+{
+  "name": "jambagecom/mbi-products-categories",
+  "type": "typo3-cms-extension",
+  "description": "Hierarchical categories for tt_products. Works with tt_products and other tables.",
+  "keywords": [
+    "TYPO3",
+    "extension",
+    "shop",
+    "tt_products"
+  ],
+  "support": {
+    "issues": "https://jambage.com/kontakt/forum.html"
+  },
+  "homepage": "https://jambage.com",
+  "authors": [
+    {
+      "name": "Franz Holzinger",
+      "role": "Developer",
+      "homepage": "https://ttproducts.de"
+    }
+  ],
+  "license": [
+    "GPL-2.0-or-later"
+  ],
+  "require": {
+    "php": ">=5.5.0,<7.3.99",
+    "typo3/cms-core": ">=6.2.0,<=9.5.99",
+    "jambagecom/div2007": ">=1.10.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "JambageCom\\MbiProductsCategories\\": "Classes"
+    }
+  },
+  "replace": {
+    "jambagecom/mbi-products-categories": "self.version",
+    "typo3-ter/mbi-products-categories": "self.version"
+  },
+  "extra": {
+    "typo3/cms": {
+      "extension-key": "mbi_products_categories"
+    }
+  }
+}

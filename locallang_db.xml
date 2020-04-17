@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+    <meta type="array">
+        <description>texts for database</description>
+        <type>database</type>
+        <csh_table></csh_table>
+        <labelContext type="array">
+        </labelContext>
+    </meta>
+    <data type="array">
+        <languageKey index="default" type="array">
+            <label index="tt_products_cat">Product category</label>
+            <label index="tt_products_cat.parent_category">Parent category</label>
+            <label index="tt_products_cat.reference_category">Reference category</label>
+        </languageKey>
+        <languageKey index="dk" type="array">
+            <label index="tt_products_cat">Produkt kategori</label>
+        </languageKey>
+        <languageKey index="de" type="array">
+            <label index="tt_products_cat">Produkt Kategorie</label>
+            <label index="tt_products_cat.parent_category">Oberkategorie</label>
+            <label index="tt_products_cat.reference_category">Verweis Kategorie</label>
+        </languageKey>
+        <languageKey index="no" type="array">
+            <label index="tt_products_cat">Produkt kategori</label>
+        </languageKey>
+        <languageKey index="it" type="array">
+            <label index="tt_products_cat">Categoria prodotto</label>
+            <label index="tt_products_cat.parent_category">Categoria dei genitori</label>
+        </languageKey>
+        <languageKey index="fr" type="array">
+            <label index="tt_products_cat">Catégorie de produit</label>
+            <label index="tt_products_cat.parent_category">Catégorie des parents</label>
+        </languageKey>
+        <languageKey index="es" type="array">
+            <label index="tt_products_cat">Categoría de producto</label>
+        </languageKey>
+        <languageKey index="nl" type="array">
+            <label index="tt_products_cat">Product categorie</label>
+        </languageKey>
+        <languageKey index="pl" type="array">
+            <label index="tt_products_cat">Kategoria produktu</label>
+        </languageKey>
+        <languageKey index="si" type="array">
+            <label index="tt_products_cat">Na zalogi (kom)</label>
+        </languageKey>
+        <languageKey index="fi" type="array">
+            <label index="tt_products_cat">Tuoteluokka</label>
+        </languageKey>
+        <languageKey index="tr" type="array">
+            <label index="tt_products_cat">Ürün kategorisi</label>
+        </languageKey>
+        <languageKey index="se" type="array">
+            <label index="tt_products_cat">Produktkategori</label>
+        </languageKey>
+        <languageKey index="pt" type="array">
+            <label index="tt_products_cat">Categoria do produto</label>
+        </languageKey>
+    </data>
+</T3locallang>

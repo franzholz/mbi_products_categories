@@ -1,48 +1,34 @@
 <?php
 
-########################################################################
-# Extension Manager/Repository config file for ext "mbi_products_categories".
-#
-# Auto generated 14-02-2012 16:52
-#
-# Manual updates:
-# Only the data in the array - everything else is removed by next
-# writing. "version" and "dependencies" must not be touched!
-########################################################################
+/***************************************************************
+ * Extension Manager/Repository config file for ext "mbi_products_categories".
+ *
+ ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Shop Categories',
-	'description' => 'Enables hierarchical categories for products. Works with every version of tt_products.',
-	'category' => 'misc',
-	'shy' => 0,
-	'version' => '0.1.4',
-	'dependencies' => '',
-	'conflicts' => '',
-	'priority' => '',
-	'loadOrder' => '',
-	'module' => '',
-	'state' => 'alpha',
-	'uploadfolder' => 0,
-	'createDirs' => '',
-	'modify_tables' => '',
-	'clearcacheonload' => 0,
-	'lockType' => '',
-	'author' => 'Christian Lang',
-	'author_email' => 'christian.lang@mbi.de',
-	'author_company' => '',
-	'CGLcompliance' => '',
-	'CGLcompliance_note' => '',
-	'constraints' => array(
-		'depends' => array(
-			'php' => '3.0.0-0.0.0',
-			'typo3' => '3.5.0-0.0.0',
-		),
-		'conflicts' => array(
-		),
-		'suggests' => array(
-		),
-	),
-	'_md5_values_when_last_written' => 'a:10:{s:9:"ChangeLog";s:4:"2c93";s:43:"class.tx_mbiproductscategories_treeview.php";s:4:"2356";s:21:"ext_conf_template.txt";s:4:"4324";s:12:"ext_icon.gif";s:4:"b6f5";s:17:"ext_localconf.php";s:4:"8fce";s:14:"ext_tables.php";s:4:"eff9";s:14:"ext_tables.sql";s:4:"da89";s:16:"locallang_db.php";s:4:"9eb9";s:14:"doc/manual.sxw";s:4:"91af";s:61:"lib/class.tx_mbiproductscategories_tcefunc_selecttreeview.php";s:4:"e318";}',
+    'title' => 'Shop Categories',
+    'description' => 'Hierarchical categories for tt_products. Works with tt_products and other tables.',
+    'category' => 'misc',
+    'state' => 'stable',
+    'uploadfolder' => 0,
+    'createDirs' => '',
+    'clearCacheOnLoad' => 0,
+    'author' => 'Franz Holzinger',
+    'author_email' => 'franz@ttproducts.de',
+    'author_company' => '',
+    'version' => '0.7.7',
+    'constraints' => array(
+        'depends' => array(
+            'div2007' => '1.10.0-0.0.0',
+            'php' => '5.5.0-7.3.99',
+            'typo3' => '6.2.0-9.5.99',
+        ),
+        'suggests' => array(
+            'tt_products' => '2.9.4-3.99.99',
+            'typo3db_legacy' => '1.0.0-1.1.99',
+        ),
+        'conflicts' => array(
+        ),
+    ),
 );
 
-?>
