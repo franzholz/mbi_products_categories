@@ -1,9 +1,7 @@
 <?php
 defined('TYPO3_MODE') || die('Access denied.');
 
-if (
-    version_compare(TYPO3_version, '6.2.0', '>=')
-) {
+call_user_func(function () {
     $pid_list = '';
     $refTable = 'tt_products';
     $mmTable = 'tx_mbiproductscategories_mm';
@@ -47,7 +45,8 @@ if (
                 'exclude' => 1,
                 'label' => 'LLL:EXT:mbi_products_categories/locallang_db.xml:tt_products_cat.reference_category',
                 'config' => array (
-                    'autoSizeMax' => 45,
+                    'autoSizeMax' => 35,
+                    'size' => 30,
                     'minitems' => 0,
                     'maxitems' => 1,
                     'type' => 'select',
@@ -81,5 +80,5 @@ if (
             'after:subtitle'
         );
     }
-}
+});
 

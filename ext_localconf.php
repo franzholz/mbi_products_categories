@@ -31,12 +31,10 @@ call_user_func(function () {
         $version = $eInfo['version'];
     }
 
-    if (version_compare($version, '2.7.3', '>=')) {
-        // Hook for extending the products list
-        $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tt_products']['prodCategory'][] = \JambageCom\MbiProductsCategories\Utility\Category::class;
+    // Hook for extending the products list
+    $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tt_products']['prodCategory'][] = \JambageCom\MbiProductsCategories\Utility\Category::class;
 
-        // Hooks for datamap procesing
-        // for changing the category field from the number of catogories to the first category
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = \JambageCom\MbiProductsCategories\Hooks\DmHooks::class;
-    }
+    // Hooks for datamap procesing
+    // for changing the category field from the number of catogories to the first category
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] = \JambageCom\MbiProductsCategories\Hooks\DmHooks::class;
 });
