@@ -49,7 +49,7 @@ if (
             'minitems' => 0,
             'maxitems' => 100,
             'type' => 'select',
-            'renderMode' => 'tree',
+            'renderType' => 'selectTree',
             'foreign_table' => $foreigntable,
             'foreign_table_where' => $where . ' ORDER BY ' . $foreigntable . '.title',
             'MM' => $mmTable,
