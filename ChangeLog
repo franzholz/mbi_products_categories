@@ -1,3 +1,8 @@
+
+
+2020-05-20 Franz Holzinger  <franz@tt_products.de>
+    * remove deprecations since TYPO3 8.3: TCA config.treeConfig.appearance.width and autoSizeMax.
+
 2020-05-19 Franz Holzinger  <franz@tt_products.de>
 	* remove support for TYPO3 6.2
 

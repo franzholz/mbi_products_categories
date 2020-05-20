@@ -45,8 +45,7 @@ call_user_func(function () {
                 'exclude' => 1,
                 'label' => 'LLL:EXT:mbi_products_categories/locallang_db.xml:tt_products_cat.reference_category',
                 'config' => array (
-                    'autoSizeMax' => 35,
-                    'size' => 30,
+                    'size' => 15,
                     'minitems' => 0,
                     'maxitems' => 1,
                     'type' => 'select',
@@ -59,7 +58,6 @@ call_user_func(function () {
                             'expandAll' => $expandAll,
                             'showHeader' => TRUE,
                             'maxLevels' => 99,
-                            'width' => 500,
                         )
                     ),
                     'exclude' => 1,

@@ -45,10 +45,9 @@ call_user_func(function () {
         $where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($foreigntable);
 
         $GLOBALS['TCA'][$refTable]['columns'][$field]['config'] = array(
-            'autoSizeMax' => 35,
-            'size' => 30,
+            'size' => 15,
             'minitems' => 0,
-            'maxitems' => 100,
+            'maxitems' => 150,
             'type' => 'select',
             'renderType' => 'selectTree',
             'foreign_table' => $foreigntable,
@@ -60,7 +59,6 @@ call_user_func(function () {
                     'expandAll' => $expandAll,
                     'showHeader' => TRUE,
                     'maxLevels' => 99,
-                    'width' => 500,
                 )
             ),
             'exclude' => 1,
