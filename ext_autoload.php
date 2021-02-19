@@ -1,7 +1,6 @@
 <?php
 $extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('mbi_products_categories');
 return [
-	'JambageCom\\MbiProductsCategories\\View\\TreeSelector' => $extensionPath . 'Classes/View/TreeSelector.php',
 	'JambageCom\\MbiProductsCategories\\Hooks\\DmHooks' => $extensionPath . 'Classes/Hooks/DmHooks.php',
 	'JambageCom\\MbiProductsCategories\\Utility\\Category' => $extensionPath . 'Classes/Utility/Category.php',
 	'JambageCom\\MbiProductsCategories\\Utility\\ItemArray' => $extensionPath . 'Classes/Utility/ItemArray.php',
