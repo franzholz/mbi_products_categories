@@ -1,7 +1,5 @@
 <?php
 
-namespace JambageCom\MbiProductsCategories\View;
-
 /***************************************************************
 *  Copyright notice
 *
