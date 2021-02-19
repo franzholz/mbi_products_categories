@@ -81,9 +81,9 @@ class tx_nsbcat2menu_pi1 extends tslib_pibase {
 			}
 
 			if (version_compare($version, '0.2.1', '>=')) {
-				$mbiObj = \TYPO3\CMS\Core\Utility\GeneralUtility::getUserObj('&tx_mbiproductscategories_category');
+				$mbiObj = \TYPO3\CMS\Core\Utility\GeneralUtility::getUserObj(\\JambageCom\\MbiProductsCategories\\Utility\\Category::class);
 
-				$lineCatArray = array();
+				$lineCatArray = [];
 				$this->internal['catArr'] =
 					$mbiObj->getCategoryTableContents(
 						$this,$tmpAct, $table, $pid, $whereClause, $groupBy, $orderBy, $limit, $lineCatArray
@@ -180,9 +180,9 @@ class tx_nsbcat2menu_pi1 extends tslib_pibase {
 			$this->internal['recSelreg']=$menuArray['uid'];
 			$this->getRecHref($menuArray);
 //TODO this->conf['varHasCHash']
-			$menuArray['_OVERRIDE_HREF'] = $this->pi_linkTP_keepPIvars_url(array($this->conf['varCat'] => $this->internal['recSelreg']), 0, 0, $this->conf['targetId']);
-		}else{
-			$menuArray['_OVERRIDE_HREF'] = $this->pi_linkTP_keepPIvars_url(array($this->conf['varCat'] => $menuArray['uid']), 0, 0, $this->conf['targetId']);
+			$menuArray['_OVERRIDE_HREF'] = $this->pi_linkTP_keepPIvars_url([$this->conf['varCat'] => $this->internal['recSelreg']], 0, 0, $this->conf['targetId']);
+		} else {
+			$menuArray['_OVERRIDE_HREF'] = $this->pi_linkTP_keepPIvars_url([$this->conf['varCat'] => $menuArray['uid']], 0, 0, $this->conf['targetId']);
 		}
 	}
 

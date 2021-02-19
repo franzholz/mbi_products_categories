@@ -44,7 +44,7 @@ call_user_func(function () {
         $where = ($pid_list != '' ? ' AND ' . $foreigntable . '.pid IN (' . $pid_list . ') ' : '') . $whereCategory;
         $where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($foreigntable);
 
-        $GLOBALS['TCA'][$refTable]['columns'][$field]['config'] = array(
+        $GLOBALS['TCA'][$refTable]['columns'][$field]['config'] = [
             'size' => 15,
             'minitems' => 0,
             'maxitems' => 150,
@@ -53,16 +53,16 @@ call_user_func(function () {
             'foreign_table' => $foreigntable,
             'foreign_table_where' => $where . ' ORDER BY ' . $foreigntable . '.title',
             'MM' => $mmTable,
-            'treeConfig' => array(
+            'treeConfig' => [
                 'parentField' => $parentfield,
-                'appearance' => array(
+                'appearance' => [
                     'expandAll' => $expandAll,
                     'showHeader' => TRUE,
                     'maxLevels' => 99,
-                )
-            ),
+                ]
+            ],
             'exclude' => 1,
             'default' => 0
-        );
+        ];
     }
 });

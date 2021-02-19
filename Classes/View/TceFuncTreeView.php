@@ -42,7 +42,7 @@ class TceFuncTreeView extends \TYPO3\CMS\Backend\Tree\View\AbstractTreeView
 {
 
     public $TCEforms_itemFormElName = '';
-    public $TCEforms_nonSelectableItemsArray = array();
+    public $TCEforms_nonSelectableItemsArray = [];
 
     /**
     * wraps the record titles in the tree with links or not depending on if they are in the TCEforms_nonSelectableItemsArray.

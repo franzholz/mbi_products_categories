@@ -5,30 +5,28 @@
  *
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array(
+$EM_CONF[$_EXTKEY] = [
     'title' => 'Shop Categories',
     'description' => 'Hierarchical categories for tt_products. Works with tt_products and other tables.',
     'category' => 'misc',
     'state' => 'stable',
-    'uploadfolder' => 0,
-    'createDirs' => '',
     'clearCacheOnLoad' => 0,
     'author' => 'Franz Holzinger',
     'author_email' => 'franz@ttproducts.de',
     'author_company' => '',
-    'version' => '0.7.9',
-    'constraints' => array(
-        'depends' => array(
+    'version' => '0.7.10',
+    'constraints' => [
+        'depends' => [
             'div2007' => '1.10.0-0.0.0',
-            'php' => '5.5.0-7.3.99',
-            'typo3' => '7.6.0-9.5.99',
-        ),
-        'suggests' => array(
-            'tt_products' => '2.9.4-3.99.99',
-            'typo3db_legacy' => '1.0.0-1.1.99',
-        ),
-        'conflicts' => array(
-        ),
-    ),
-);
+            'php' => '5.5.0-7.4.99',
+            'typo3' => '7.6.0-10.4.99',
+        ],
+        'suggests' => [
+            'tt_products' => '2.9.13-3.99.99',
+            'typo3db_legacy' => '1.0.0-1.99',
+        ],
+        'conflicts' => [
+        ],
+    ],
+];
 

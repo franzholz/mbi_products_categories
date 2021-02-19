@@ -57,7 +57,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 	{
 		$where = '';
 		if($cat != '' || $andCat != '') {
-			$uidArray = array();
+			$uidArray = [];
 			$tableObj = $prodObject->getTableObj();
 			$this->getUidsCat(
 				$prodObject,
@@ -87,10 +87,10 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 	)
 	{
 		$startCat = $cat;
-		$childCatArray = array();
+		$childCatArray = [];
 		$catArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $cat);
 		foreach ($catArray as $loopCat) {
-			$childCatArray[$loopCat] = array();
+			$childCatArray[$loopCat] = [];
 		}
 
 		$tableObj = $prodObject->getTableObj();
@@ -101,7 +101,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 		if ($cat != '') {
 			if ($depth > 1) {
 				$tablename = $tableObj->getName();
-				$depthArray = array();
+				$depthArray = [];
 				$depthArray[] = 1;
 				$currentPointer = 0;
 				$currentDepth = 0;
@@ -167,7 +167,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 		if ($additionalTable != '')	{
 
 			$additionalTableArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $additionalTable);
-			$additionalTableArray = array_diff($additionalTableArray, array($catTableObj->getName()));
+			$additionalTableArray = array_diff($additionalTableArray, [$catTableObj->getName()]);
 			$additionalTable = implode(',', $additionalTableArray);
 			$selectConf['from'] = ($selectConf['from'] ? $selectConf['from'] . ', ' : '') . $additionalTable;
 			$tableArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $selectConf['from']);
@@ -188,7 +188,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
     )
     {
 		$tableObj = $prodObject->getTableObj();
-		$selectConf = array();
+		$selectConf = [];
 		$local_cObj = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
 
 		if ($where != '') {
@@ -237,12 +237,12 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 		$uids = '';
 		$oldUidArray = $uidArray;
 		$newUidArray =
-			array(
-				'cat' => array(),
-				'andCat' => array()
-			);
+			[
+				'cat' => [],
+				'andCat' => []
+			];
 
-		$childCatArray = array();
+		$childCatArray = [];
 		if ($cat != '') {
 			$this->getUidsCatSingle (
 				$prodObject,
@@ -264,7 +264,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 				$where =
 					$catObject->getMMTablename() . '.uid_local IN (' . $uids . ')';
 			}
-			$childCatArray = array();
+			$childCatArray = [];
 
 			$this->getUidsCatSingle(
 				$prodObject,
@@ -283,7 +283,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 
 			if ($uids != '') {
 
-				$catArray = array();
+				$catArray = [];
 
 				foreach ($childCatArray as $loopCat => $childArray) {
 					$catArray[] = $loopCat;
@@ -300,22 +300,22 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 						$whereClause
 					);
 
-				$prodCatArray = array();
+				$prodCatArray = [];
 
 				while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
 					$prodid = $row['prodid'];
 					$catid = $row['catid'];
 					if (!isset($prodCatArray[$prodid])) {
-						$prodCatArray[$prodid] = array();
+						$prodCatArray[$prodid] = [];
 					}
 					$prodCatArray[$prodid][] = $catid;
 				}
 				$GLOBALS['TYPO3_DB']->sql_free_result($res);
-				$uidArray = array();
+				$uidArray = [];
 
 				if (count($prodCatArray)) {
 					foreach ($prodCatArray as $prodid => $loopCatArray) {
-						$bMatchCategoryArray = array();
+						$bMatchCategoryArray = [];
 						foreach ($andCatArray as $loopAndCat) {
 							foreach ($loopCatArray as $innerLoopCat) {
 								if (!isset($bMatchCategoryArray[$loopAndCat])) {
@@ -356,10 +356,10 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 				}
 
 				if (!count($uidArray)) {
-					$uidArray = array('0');
+					$uidArray = ['0'];
 				}
 			} else {
-				$uidArray = array('0');
+				$uidArray = ['0'];
 			}
 		} else if ($cat != '') {
 			$uidArray = $newUidArray['cat'];
@@ -416,7 +416,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 
 	public function getLineCategories ($catObject, $start, $endArray, $where = '')
 	{
-		$uidArray = array();
+		$uidArray = [];
 		$cat = $start;
 		$count = 0;
 		if ($cat != '' && count($endArray)) {
@@ -467,8 +467,8 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 				$orderBy,
 				$limit
 			);
-		$rowArray = array();
-		$rootArray = array();
+		$rowArray = [];
+		$rootArray = [];
 		while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res) ) {
 			$rowArray[$row['uid']] = $row;
 			$rootArray[] = $row['uid'];
@@ -500,7 +500,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 				$GLOBALS['TYPO3_DB']->sql_free_result($res);
 
 				$childArray = $this->getChildCategories($catObject, $cat);
-				$childUidArray = array();
+				$childUidArray = [];
 				foreach ($childArray as $k => $childRow) {
 					$childUidArray[] = $childRow['cat'];
 				}

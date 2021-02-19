@@ -40,11 +40,11 @@ call_user_func(function () {
         $where = ($pid_list != '' ? ' AND ' . $foreigntable . '.pid IN (' . $pid_list . ') ' : '') . $whereCategory;
         $where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($foreigntable);
 
-        $tempColumns = array (
-            'reference_category' => array (
+        $tempColumns = [
+            'reference_category' => [
                 'exclude' => 1,
                 'label' => 'LLL:EXT:mbi_products_categories/locallang_db.xml:tt_products_cat.reference_category',
-                'config' => array (
+                'config' => [
                     'size' => 15,
                     'minitems' => 0,
                     'maxitems' => 1,
@@ -52,19 +52,19 @@ call_user_func(function () {
                     'renderType' => 'selectTree',
                     'foreign_table' => $foreigntable,
                     'foreign_table_where' => $where . ' ORDER BY ' . $foreigntable . '.title',
-                    'treeConfig' => array(
+                    'treeConfig' => [
                         'parentField' => $parentfield,
-                        'appearance' => array(
+                        'appearance' => [
                             'expandAll' => $expandAll,
                             'showHeader' => TRUE,
                             'maxLevels' => 99,
-                        )
-                    ),
+                        ]
+                    ],
                     'exclude' => 1,
                     'default' => 0
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
             $foreigntable,

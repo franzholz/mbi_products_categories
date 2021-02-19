@@ -44,7 +44,7 @@ class Tree implements \TYPO3\CMS\Core\SingletonInterface {
 
     public function fixRecursion ($table, $uid, array $newRow, $parentField, array $endArray)
     {
-		$uidArray = array();
+		$uidArray = [];
 		$cat = $uid;
 		$count = 0;
 
@@ -69,7 +69,7 @@ class Tree implements \TYPO3\CMS\Core\SingletonInterface {
 			$endArray[] = $cat;
 			$endArray[] = $formerParent;
 			$parent = $newRow[$parentField];
-			$uidArray = array();
+			$uidArray = [];
 			$count = 0;
 
 			do {
@@ -88,7 +88,7 @@ class Tree implements \TYPO3\CMS\Core\SingletonInterface {
 
 			if ($parent == $uid) { // loop detected
 				$uidArray[] = $parent;
-				$fields_values = array();
+				$fields_values = [];
 				$fields_values[$parentField] = $formerParent; // Make the former parent of the current record the parent of the found record. This will remove the recursive loop.
 				$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
 					$table,

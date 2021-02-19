@@ -60,7 +60,7 @@ class DmHooks {
 						$id,
 						$row,
 						'parent_category',
-						array('0')
+						['0']
 					);
 				break;
 			}

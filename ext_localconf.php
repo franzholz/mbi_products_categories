@@ -6,8 +6,8 @@ call_user_func(function () {
         define('MBI_PRODUCTS_CATEGORIES_EXT', 'mbi_products_categories');
     }
 
-    $extensionConfiguration = array();
-    $originalConfiguration = array();
+    $extensionConfiguration = [];
+    $originalConfiguration = [];
 
     if (
         defined('TYPO3_version') &&
