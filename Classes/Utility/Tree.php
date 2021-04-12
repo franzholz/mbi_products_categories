@@ -5,7 +5,7 @@ namespace JambageCom\MbiProductsCategories\Utility;
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2007-2016 Franz Holzinger <franz@ttproducts.de>
+*  (c) 2007-2021 Franz Holzinger <franz@ttproducts.de>
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is

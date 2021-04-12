@@ -210,15 +210,13 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                         $config['treeViewClass'] &&
                         is_object(
                             $treeViewObj =
-                            \TYPO3\CMS\Core\Utility\GeneralUtility::getUserObj(
-                                $config['treeViewClass'],
-                                'user_',
-                                FALSE
+                            \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+                                $config['treeViewClass']
                             )
                         )
                     ) {
                     } else {
-                        $treeViewObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('JambageCom\\MbiProductsCategories\\View\\TceFuncTreeView');
+                        $treeViewObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\JambageCom\MbiProductsCategories\View\TceFuncTreeView::class);
                     }
                     $treeViewObj->table = $config['foreign_table'];
                     $treeViewObj->addField('pid'); // neu

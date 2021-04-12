@@ -5,7 +5,7 @@ namespace JambageCom\MbiProductsCategories\Hooks;
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2007-2017 Franz Holzinger <franz@ttproducts.de>
+*  (c) 2007-2021 Franz Holzinger <franz@ttproducts.de>
 *  All rights reserved
 *
 *  This script is part of the Typo3 project. The Typo3 project is
@@ -42,7 +42,13 @@ namespace JambageCom\MbiProductsCategories\Hooks;
 
 class DmHooks {
 
-	public function processDatamap_postProcessFieldArray($status, $table, $id, &$fieldArray, $pObj)
+	public function processDatamap_postProcessFieldArray(
+        $status, 
+        $table,
+        $id,
+        &$fieldArray,
+        $pObj
+    )
 	{
 		if (strpos($table, 'tt_products') === 0) {
 			$row = $pObj->datamap[$table][$id];
@@ -53,7 +59,7 @@ class DmHooks {
 					$fieldArray['category'] = intval(current($catArray));
 				break;
 				case 'tt_products_cat':
-                    $tree = \TYPO3\CMS\Core\Utility\GeneralUtility::getUserObj('JambageCom\\MbiProductsCategories\\Utility\\Tree');
+                    $tree = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\JambageCom\MbiProductsCategories\Utility\Tree::class);
 
 					$tree->fixRecursion(
 						$table,

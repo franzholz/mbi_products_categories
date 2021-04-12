@@ -57,10 +57,10 @@ class tx_nsbcat2menu_pi1 extends tslib_pibase {
 		$this->prefixId = $this->conf['extTrigger'];
 		$my_vars = $GLOBALS['TSFE']->fe_user->getKey('ses', 'nsb_cat2menu');
 		$tmpAct = \TYPO3\CMS\Core\Utility\GeneralUtility::_GET($this->prefixId);
-		$tmpAct = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(",", $tmpAct['cat']);
+		$tmpAct = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $tmpAct['cat']);
 
 		if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('table')) {
-			$this->tableObj = \TYPO3\CMS\Core\Utility\GeneralUtility::getUserObj('tx_table_db');
+			$this->tableObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_table_db');
 		}
 
 		if(0) {
@@ -81,7 +81,7 @@ class tx_nsbcat2menu_pi1 extends tslib_pibase {
 			}
 
 			if (version_compare($version, '0.2.1', '>=')) {
-				$mbiObj = \TYPO3\CMS\Core\Utility\GeneralUtility::getUserObj(\\JambageCom\\MbiProductsCategories\\Utility\\Category::class);
+				$mbiObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\JambageCom\MbiProductsCategories\Utility\Category::class);
 
 				$lineCatArray = [];
 				$this->internal['catArr'] =
@@ -100,7 +100,7 @@ class tx_nsbcat2menu_pi1 extends tslib_pibase {
 				$this->internal['catArr'][$value]['ITEM_STATE'] = 'CUR';
 			}
 
-			$menuArray = $this->makeMenuArray(\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(",", $this->conf['catList']));
+			$menuArray = $this->makeMenuArray(\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->conf['catList']));
 //this session storage alows different multiple instances only if the triggered extension is different
 			$my_vars[$this->prefixId] = $menuArray;
 			$GLOBALS["TSFE"]->fe_user->setKey('ses', 'nsb_cat2menu', $my_vars);
