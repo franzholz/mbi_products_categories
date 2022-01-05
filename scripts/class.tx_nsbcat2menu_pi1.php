@@ -32,16 +32,16 @@
 
 
 class tx_nsbcat2menu_pi1 extends tslib_pibase {
-//	var $prefixId = 'tx_nsbcat2menu_pi1';		// Same as class name (used only by pivars ?)
-	var $scriptRelPath = 'pi1/class.tx_nsbcat2menu_pi1.php';	// Path to this script relative to the extension dir.
-	var $extKey = 'nsb_cat2menu';	// The extension key.
+//	public $prefixId = 'tx_nsbcat2menu_pi1';		// Same as class name (used only by pivars ?)
+	public $scriptRelPath = 'pi1/class.tx_nsbcat2menu_pi1.php';	// Path to this script relative to the extension dir.
+	public $extKey = 'nsb_cat2menu';	// The extension key.
 //i must think
-	var $pi_checkCHash = TRUE;
-	var $internal = Array(		// Used internally for general storage of values between methods
+	public $pi_checkCHash = TRUE;
+	public $internal = Array(		// Used internally for general storage of values between methods
 		'catArr' => Array(),		//Current category table from pi_getCategoryTableContents
 		'recSelReg' => ''	//Used only if the recursive select option is on (recursiveSelectionRegistry)
 	);
-	var $tableObj;
+	public $tableObj;
 
 	public function getTableObj () {
 		return $this->tableObj;

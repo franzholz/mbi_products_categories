@@ -21,15 +21,6 @@ call_user_func(function () {
     }
 
     $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][MBI_PRODUCTS_CATEGORIES_EXT] = $extensionConfiguration;
-    $version = 0;
-
-    if (
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('div2007') &&
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_products')
-    ) {
-        $eInfo = \JambageCom\Div2007\Utility\ExtensionUtility::getExtensionInfo('tt_products');
-        $version = $eInfo['version'];
-    }
 
     // Hook for extending the products list
     $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['tt_products']['prodCategory'][] = \JambageCom\MbiProductsCategories\Utility\Category::class;

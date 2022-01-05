@@ -23,12 +23,12 @@
     "GPL-2.0-or-later"
   ],
   "require": {
-    "php": "^5.5 || ^7.2",
-    "typo3/cms-core": "^7.6 || ^8.7 || ^9.5 || ^10.4",
-    "jambagecom/div2007": "^1.10"
+    "php": "^7.2",
+    "typo3/cms-core": "^9.5 || ^10.4 || ^11.5",
+    "jambagecom/div2007": "^1.10 || ^1.11 || ^1.12"
   },
   "suggest": {
-    "jambagecom/tt-products": ">=2.9.13,<3.3",
+    "jambagecom/tt-products": ">=2.9.20,<3.3",
     "friendsoftypo3/typo3db-legacy": ">=1.0.0,<1.99"
   },
   "autoload": {
@@ -37,8 +37,7 @@
     }
   },
   "replace": {
-    "jambagecom/mbi-products-categories": "self.version",
-    "typo3-ter/mbi-products-categories": "self.version"
+    "jambagecom/mbi-products-categories": "self.version"
   },
   "extra": {
     "typo3/cms": {

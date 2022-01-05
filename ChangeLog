@@ -1,3 +1,6 @@
+2022-01-05 Franz Holzinger  <franz@tt_products.de>
+	* add support for TYPO3 11.5
+
 2021-04-12 Franz Holzinger  <franz@tt_products.de>
 	* bugfix: Replace the remove method GeneralUtility::getUserObj by GeneralUtility::makeInstance
 
