@@ -1,3 +1,6 @@
+2022-01-06 Franz Holzinger  <franz@tt_products.de>
+	* compatibility TYPO3 11.5: move the language files into Resources/Private/Language/
+
 2022-01-05 Franz Holzinger  <franz@tt_products.de>
 	* add support for TYPO3 11.5
 

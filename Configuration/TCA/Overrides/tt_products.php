@@ -2,6 +2,10 @@
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(function () {
+    if (!\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_products')) {
+        return;
+    }
+
     $pid_list = '';
     $refTable = 'tt_products';
     $mmTable = 'tx_mbiproductscategories_mm';

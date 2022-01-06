@@ -2,6 +2,10 @@
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(function () {
+    if (!\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_products')) {
+        return;
+    }
+
     $pid_list = '';
     $refTable = 'tt_products';
     $mmTable = 'tx_mbiproductscategories_mm';
@@ -43,7 +47,7 @@ call_user_func(function () {
         $tempColumns = [
             'reference_category' => [
                 'exclude' => 1,
-                'label' => 'LLL:EXT:mbi_products_categories/locallang_db.xml:tt_products_cat.reference_category',
+                'label' => 'LLL:EXT:mbi_products_categories' . DIV2007_LANGUAGE_SUBPATH . 'locallang_db.xlf:tt_products_cat.reference_category',
                 'config' => [
                     'size' => 15,
                     'minitems' => 0,
