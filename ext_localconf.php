@@ -20,6 +20,10 @@ call_user_func(function () {
         $extensionConfiguration = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][MBI_PRODUCTS_CATEGORIES_EXT]);
     }
 
+    if (!defined ('PATH_MBIPRODUCTSCATEGORIES_ICON_TABLE_REL')) {
+        define('PATH_MBIPRODUCTSCATEGORIES_ICON_TABLE_REL', 'EXT:' . MBI_PRODUCTS_CATEGORIES_EXT . '/Resources/Public/Icons/');
+    }
+
     $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][MBI_PRODUCTS_CATEGORIES_EXT] = $extensionConfiguration;
 
     // Hook for extending the products list

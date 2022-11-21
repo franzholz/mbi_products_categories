@@ -72,7 +72,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 			if (count($uidArray)) {
 				$where = $tableObj->aliasArray[$tableObj->getName()] . '.uid IN (' . implode(',', $uidArray) . ')';
 			}
-			$operator = 'AND';
+            $operator = 'AND';
 		}
 		return $where;
 	}
@@ -124,9 +124,9 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 				}
 				$cat = implode(',', $catArray);
 			}
-			$selectConf['where'] = ($selectConf['where'] ? $selectConf['where'] . ' AND ':'') . $catObject->getMMTablename() . '.uid_foreign IN (' . $cat . ')';
+			$selectConf['where'] = (!empty($selectConf['where']) ? $selectConf['where'] . ' AND ' : '') . $catObject->getMMTablename() . '.uid_foreign IN (' . $cat . ')';
 			$additionalTable = $tableObj->getAdditionalTables();
-			$selectConf['from'] = ($selectConf['from'] ? $selectConf['from'] . ', ':'') . $additionalTable;
+			$selectConf['from'] = (!empty($selectConf['from']) ? $selectConf['from'] . ', ':'') . $additionalTable;
 		}
 
 		if ($depth == 0) {
