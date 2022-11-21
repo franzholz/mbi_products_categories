@@ -1,5 +1,6 @@
 2022-11-21 Franz Holzinger  <franz@tt_products.de>
 	* add support for PHP 8
+	* add file Configuration/TCA/tx_mbiproductscategories_mm.php for support of div2007 methods
 
 2022-07-08 Franz Holzinger  <franz@tt_products.de>
     * bugfix: Remove wrong t3:id="1641492986" from language file locallang_db.xlf.

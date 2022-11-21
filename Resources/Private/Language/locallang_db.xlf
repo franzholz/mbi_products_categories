@@ -12,6 +12,15 @@
 			<trans-unit id="tt_products_cat.reference_category" resname="tt_products_cat.reference_category" >
 				<source>Reference category</source>
 			</trans-unit>
+			<trans-unit id="tx_mbiproductscategories_mm" resname="tx_mbiproductscategories_mm" >
+				<source>Product to category</source>
+			</trans-unit>
+			<trans-unit id="tx_mbiproductscategories_mm.uid_local" resname="tx_mbiproductscategories_mm.uid_local" >
+				<source>Local product</source>
+			</trans-unit>
+			<trans-unit id="tx_mbiproductscategories_mm.uid_foreign" resname="tx_mbiproductscategories_mm.uid_foreign" >
+				<source>Local category</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
