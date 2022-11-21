@@ -15,6 +15,18 @@
         <source>Reference category</source>
         <target state="needs-translation">Reference category</target>
       </trans-unit>
+      <trans-unit id="tx_mbiproductscategories_mm" resname="tx_mbiproductscategories_mm">
+        <source>Product to category</source>
+        <target state="needs-translation">Product to category</target>
+      </trans-unit>
+      <trans-unit id="tx_mbiproductscategories_mm.uid_local" resname="tx_mbiproductscategories_mm.uid_local">
+        <source>Local product</source>
+        <target state="needs-translation">Local product</target>
+      </trans-unit>
+      <trans-unit id="tx_mbiproductscategories_mm.uid_foreign" resname="tx_mbiproductscategories_mm.uid_foreign">
+        <source>Local category</source>
+        <target state="needs-translation">Local category</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
