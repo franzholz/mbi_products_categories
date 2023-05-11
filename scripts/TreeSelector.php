@@ -57,7 +57,8 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
     */
     public function displayCategoryTree ($PA, $fobj)
     {
-        $errorMsg = array();
+        $extensionKey = 'mbi_products_categories';
+        $errorMsg = [];
         $table = $PA['table'];
         $field = $PA['field'];
         $row = $PA['row'];
@@ -75,9 +76,9 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
         }
 
         $this->pObj = $PA['pObj'];
-        $this->pid_list = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][MBI_PRODUCTS_CATEGORIES_EXT]['pid_list'];
+        $this->pid_list = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['pid_list'];
 
-        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][MBI_PRODUCTS_CATEGORIES_EXT]['useStoragePid']) {
+        if ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['useStoragePid']) {
             $this->pid_list = $TSconfig['_STORAGE_PID'];
         }
 
@@ -136,7 +137,7 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                 if ($this->pid_list) {
                     $SPaddWhere = ' AND ' . $config['foreign_table' ] . '.pid IN (' . $this->pid_list . ')';
                 }
-                $notAllowedItems = array();
+                $notAllowedItems = [];
 
                 if (
                     $GLOBALS['BE_USER']->getTSConfigVal('options.useListOfAllowedItems') &&
@@ -154,8 +155,8 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                     '',
                     'mmsorting'
                 );
-                $categories = array();
-                $NACats = array();
+                $categories = [];
+                $NACats = [];
                 $na = FALSE;
                 while ($catrow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($catres)) {
 
@@ -226,7 +227,7 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                     $treeViewObj->backPath = $this->pObj->backPath;
                     $treeViewObj->parentField = 'parent_category';
 
-                    $treeViewObj->expandAll = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][MBI_PRODUCTS_CATEGORIES_EXT]['expandAll'];
+                    $treeViewObj->expandAll = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['expandAll'];
                     $treeViewObj->expandFirst = 1;
                     $treeViewObj->ext_IconMode = '1'; // no context menu on icons
                     $treeViewObj->title = $GLOBALS['LANG']->sL($GLOBALS['TCA'][$config['foreign_table']]['ctrl']['title']);

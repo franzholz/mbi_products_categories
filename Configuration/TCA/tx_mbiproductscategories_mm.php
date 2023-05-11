@@ -1,9 +1,11 @@
 <?php
 defined('TYPO3') || die('Access denied.');
 
+$extensionKey = 'tx_mbiproducts_categories';
+
 $result = [
     'ctrl' => [
-        'title' => 'LLL:EXT:' . MBI_PRODUCTS_CATEGORIES_EXT . DIV2007_LANGUAGE_SUBPATH . 'locallang_db.xlf:tx_mbiproductscategories_mm',
+        'title' => 'LLL:EXT:' . $extensionKey . DIV2007_LANGUAGE_SUBPATH . 'locallang_db.xlf:tx_mbiproductscategories_mm',
         'label' => 'uid_local',
         'tstamp' => 'tstamp',
         'delete' => 'deleted',
@@ -12,12 +14,12 @@ $result = [
         ],
         'prependAtCopy' => DIV2007_LANGUAGE_LGL . 'prependAtCopy',
         'crdate' => 'crdate',
-        'iconfile' => PATH_MBIPRODUCTSCATEGORIES_ICON_TABLE_REL . 'tt_products_cat.gif',
+        'iconfile' => 'EXT:' . $extensionKey . '/Resources/Public/Icons/' . 'tt_products_cat.gif',
         'hideTable' => true,
     ],
     'columns' => [
         'uid_local' => [
-            'label' => 'LLL:EXT:' . MBI_PRODUCTS_CATEGORIES_EXT . DIV2007_LANGUAGE_SUBPATH . 'locallang_db.xlf:tx_mbiproductscategories_mm.uid_local',
+            'label' => 'LLL:EXT:' . $extensionKey . DIV2007_LANGUAGE_SUBPATH . 'locallang_db.xlf:tx_mbiproductscategories_mm.uid_local',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -27,7 +29,7 @@ $result = [
             ]
         ],
         'uid_foreign' => [
-            'label' => 'LLL:EXT:' . MBI_PRODUCTS_CATEGORIES_EXT . DIV2007_LANGUAGE_SUBPATH . 'locallang_db.xlf:tx_mbiproductscategories_mm.uid_foreign',
+            'label' => 'LLL:EXT:' . $extensionKey . DIV2007_LANGUAGE_SUBPATH . 'locallang_db.xlf:tx_mbiproductscategories_mm.uid_foreign',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
