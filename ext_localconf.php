@@ -1,5 +1,5 @@
 <?php
-defined('TYPO3_MODE') || die('Access denied.');
+defined('TYPO3') || die('Access denied.');
 
 call_user_func(function () {
     if (!defined ('MBI_PRODUCTS_CATEGORIES_EXT')) {
@@ -9,16 +9,9 @@ call_user_func(function () {
     $extensionConfiguration = [];
     $originalConfiguration = [];
 
-    if (
-        defined('TYPO3_version') &&
-        version_compare(TYPO3_version, '9.0.0', '>=')
-    ) {
-        $extensionConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
-            \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class
-        )->get(MBI_PRODUCTS_CATEGORIES_EXT);
-    } else { // before TYPO3 9
-        $extensionConfiguration = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][MBI_PRODUCTS_CATEGORIES_EXT]);
-    }
+    $extensionConfiguration = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+        \TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class
+    )->get(MBI_PRODUCTS_CATEGORIES_EXT);
 
     if (!defined ('PATH_MBIPRODUCTSCATEGORIES_ICON_TABLE_REL')) {
         define('PATH_MBIPRODUCTSCATEGORIES_ICON_TABLE_REL', 'EXT:' . MBI_PRODUCTS_CATEGORIES_EXT . '/Resources/Public/Icons/');

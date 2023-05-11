@@ -14,19 +14,17 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'Franz Holzinger',
     'author_email' => 'franz@ttproducts.de',
     'author_company' => '',
-    'version' => '0.7.15',
+    'version' => '0.8.0',
     'constraints' => [
         'depends' => [
-            'div2007' => '1.10.0-0.0.0',
-			'php' => '7.4.0-8.1.99',
-            'typo3' => '9.5.0-11.5.99',
+            'div2007' => '1.12.0-0.0.0',
+            'typo3' => '10.4.0-12.4.99',
         ],
         'suggests' => [
-            'tt_products' => '2.14.1-3.99.99',
+            'tt_products' => '2.14.1-3.9.99',
             'typo3db_legacy' => '1.0.0-1.99.99',
         ],
         'conflicts' => [
         ],
     ],
 ];
-

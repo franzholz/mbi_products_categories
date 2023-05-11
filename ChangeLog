@@ -1,3 +1,6 @@
+2022-05-11 Franz Holzinger  <franz@tt_products.de>
+	* add support for TYPO3 12.4
+
 2022-11-21 Franz Holzinger  <franz@tt_products.de>
 	* add support for PHP 8
 	* add file Configuration/TCA/tx_mbiproductscategories_mm.php for support of div2007 methods
