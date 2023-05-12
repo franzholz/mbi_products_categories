@@ -119,7 +119,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 					foreach ($childArray as $childRow) {
 						$catArray[] = $childRow['cat'];
 						$depthArray[] = $nextDepth;
-						$childCatArray[$currentCat][] = $childRow['cat']; // neu +++
+						$childCatArray[$currentCat][] = $childRow['cat'];
 					}
 				}
 				$cat = implode(',', $catArray);
@@ -147,12 +147,6 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 // FROM tt_products product LEFT OUTER JOIN tx_mbiproductscategories_mm mm_cat1 ON product.uid = mm_cat1.uid_local LEFT OUTER JOIN tt_products_cat tt_products_cat ON mm_cat1.uid_foreign = tt_products_cat.uid
 
 		$selectConf['leftjoin'] = $catObject->getMMTablename() . ' ' . $aliasArray['mm1'] . ' ON ' . $prodAlias . '.uid = ' . $aliasArray['mm1'] . '.uid_local LEFT JOIN ' . $catTableObj->getName() . ' ' . $catAlias . ' ON ' . $aliasArray['mm1'] . '.uid_foreign = ' . $catAlias . '.uid';
-
-
-// 		$whereJoin = $aliasArray['mm1'] . '.uid_local = ' . $aliasArray['mm2'] . '.uid_local';
-// 		if (isset($tableDesc['category']) && $tableDesc['category'] != '')	{
-// 			$whereJoin = '(' . $whereJoin . ' OR ' . $prodAlias . '.' . $tableDesc['category'] . '=0)';
-// 		}
 
 		$this->addConfAdditionalTables($prodObject, $catObject, $selectConf);
 	}
@@ -210,7 +204,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 				$local_cObj,
 				$tableObj->getName(),
 				$selectConf,
-				TRUE
+				true
 			);
 		$res = $tableObj->exec_SELECT_queryArray($queryParts);
 
@@ -320,7 +314,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 							foreach ($loopCatArray as $innerLoopCat) {
 								if (!isset($bMatchCategoryArray[$loopAndCat])) {
 									if ($loopAndCat == $innerLoopCat) {
-										$bMatchCategoryArray[$loopAndCat] = TRUE;
+										$bMatchCategoryArray[$loopAndCat] = true;
 										break;
 									} else if (
 										isset($childCatArray[$loopAndCat]) &&
@@ -328,7 +322,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 									) {
 										foreach ($childCatArray[$loopAndCat] as $loopChildCat) {
 											if ($loopChildCat == $innerLoopCat) {
-												$bMatchCategoryArray[$loopAndCat] = TRUE;
+												$bMatchCategoryArray[$loopAndCat] = true;
 												break;
 											} else if (
 												isset($childCatArray[$loopChildCat]) &&
@@ -336,7 +330,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface {
 											) {
 												foreach ($childCatArray[$loopChildCat] as $innerLoopChildCat) {
 													if ($innerLoopChildCat == $innerLoopCat) {
-														$bMatchCategoryArray[$loopAndCat] = TRUE;
+														$bMatchCategoryArray[$loopAndCat] = true;
 														break;
 													} else {
 													// TODO
