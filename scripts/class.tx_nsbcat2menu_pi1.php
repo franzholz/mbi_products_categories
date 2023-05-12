@@ -31,16 +31,16 @@
 
 
 
-class tx_nsbcat2menu_pi1 extends tslib_pibase {
+class tx_nsbcat2menu_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin implements \TYPO3\CMS\Core\SingletonInterface {
 //	public $prefixId = 'tx_nsbcat2menu_pi1';		// Same as class name (used only by pivars ?)
 	public $scriptRelPath = 'pi1/class.tx_nsbcat2menu_pi1.php';	// Path to this script relative to the extension dir.
 	public $extKey = 'nsb_cat2menu';	// The extension key.
 //i must think
-	public $pi_checkCHash = TRUE;
-	public $internal = Array(		// Used internally for general storage of values between methods
-		'catArr' => Array(),		//Current category table from pi_getCategoryTableContents
+	public $pi_checkCHash = true;
+	public $internal = [		// Used internally for general storage of values between methods
+		'catArr' => [],		//Current category table from pi_getCategoryTableContents
 		'recSelReg' => ''	//Used only if the recursive select option is on (recursiveSelectionRegistry)
-	);
+	];
 	public $tableObj;
 
 	public function getTableObj () {
@@ -75,25 +75,16 @@ class tx_nsbcat2menu_pi1 extends tslib_pibase {
 			$whereClause = '';
 			$orderBy = '';
 			$limit = '';
-			if (is_object($this->tableObj) && \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('div2007') && \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('mbi_products_categories')) {
-				$eInfo = \JambageCom\Div2007\Utility\ExtensionUtility::getExtensionInfo('mbi_products_categories');
-				$version = $eInfo['version'];
-			}
+            $mbiObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\JambageCom\MbiProductsCategories\Utility\Category::class);
 
-			if (version_compare($version, '0.2.1', '>=')) {
-				$mbiObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\JambageCom\MbiProductsCategories\Utility\Category::class);
-
-				$lineCatArray = [];
-				$this->internal['catArr'] =
-					$mbiObj->getCategoryTableContents(
-						$this,$tmpAct, $table, $pid, $whereClause, $groupBy, $orderBy, $limit, $lineCatArray
-					);
-				foreach ($lineCatArray as $value) {
-					$this->internal['catArr'][$value]['ITEM_STATE'] = 'ACT';
-				}
-			} else {
-				$this->internal['catArr'] = $this->pi_getCategoryTableContents($table, $pid, $whereClause, $groupBy, $orderBy, $limit);
-			}
+            $lineCatArray = [];
+            $this->internal['catArr'] =
+                $mbiObj->getCategoryTableContents(
+                    $this,$tmpAct, $table, $pid, $whereClause, $groupBy, $orderBy, $limit, $lineCatArray
+                );
+            foreach ($lineCatArray as $value) {
+                $this->internal['catArr'][$value]['ITEM_STATE'] = 'ACT';
+            }
 //mark active for no cookie client config
 
 			foreach ($tmpAct as $value) {
@@ -114,7 +105,7 @@ class tx_nsbcat2menu_pi1 extends tslib_pibase {
 			reset($menuArray);
 			while (list($key, $val) = each($menuArray)) {
 				if(current($actCatArr) == $menuArray[$key]['uid']) {
-					$menuArray[$key]['ITEM_STATE']='ACT';
+					$menuArray[$key]['ITEM_STATE' ]= 'ACT';
 				}
 				if($menuArray[$key]['_SUB_MENU']) {
 					$this->markActive($menuArray[$key]['_SUB_MENU'], $actCatArr);
@@ -157,14 +148,14 @@ class tx_nsbcat2menu_pi1 extends tslib_pibase {
 				$this->getHref($v);
 
 				if($v['ITEM_STATE'] == 'ACT' || $v['ITEM_STATE'] == 'CUR') {
-					$v['ROOTLINE'] = TRUE;
+					$v['ROOTLINE'] = true;
 					$ret = '1';
 				} else {
 					$ret = '0';
 				}
 				$retc = $this->makeSubMenu($v, $ret);
 				if($retc) {
-					$v['ROOTLINE'] = TRUE;
+					$v['ROOTLINE'] = true;
 				}
 				if($retc OR $ret OR ($act == '1')) {
 					$menuArray['_SUB_MENU'][] = $v;
