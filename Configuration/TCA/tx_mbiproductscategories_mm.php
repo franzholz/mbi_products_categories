@@ -1,39 +1,42 @@
 <?php
 defined('TYPO3') || die('Access denied.');
 
-$extensionKey = 'tx_mbiproducts_categories';
+$extensionKey = 'mbi_products_categories';
+$languageSubpath = '/Resources/Private/Language/';
+$localTable = 'tt_products';
+$foreignTable = 'tt_products_cat';
 
 $result = [
     'ctrl' => [
-        'title' => 'LLL:EXT:' . $extensionKey . DIV2007_LANGUAGE_SUBPATH . 'locallang_db.xlf:tx_mbiproductscategories_mm',
+        'title' => 'LLL:EXT:' . $extensionKey . $languageSubpath . 'locallang_db.xlf:tx_mbiproductscategories_mm',
         'label' => 'uid_local',
         'tstamp' => 'tstamp',
         'delete' => 'deleted',
         'enablecolumns' => [
             'disabled' => 'hidden'
         ],
-        'prependAtCopy' => DIV2007_LANGUAGE_LGL . 'prependAtCopy',
+        'prependAtCopy' => 'LLL:EXT:core' . $languageSubpath . 'locallang_general.xlf:LGL.prependAtCopy',
         'crdate' => 'crdate',
         'iconfile' => 'EXT:' . $extensionKey . '/Resources/Public/Icons/' . 'tt_products_cat.gif',
         'hideTable' => true,
     ],
     'columns' => [
         'uid_local' => [
-            'label' => 'LLL:EXT:' . $extensionKey . DIV2007_LANGUAGE_SUBPATH . 'locallang_db.xlf:tx_mbiproductscategories_mm.uid_local',
+            'label' => 'LLL:EXT:' . $extensionKey . $languageSubpath . 'locallang_db.xlf:tx_mbiproductscategories_mm.uid_local',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'foreign_table' => 'tt_products',
+                'foreign_table' => $localTable,
                 'maxitems' => 1,
                 'default' => 0
             ]
         ],
         'uid_foreign' => [
-            'label' => 'LLL:EXT:' . $extensionKey . DIV2007_LANGUAGE_SUBPATH . 'locallang_db.xlf:tx_mbiproductscategories_mm.uid_foreign',
+            'label' => 'LLL:EXT:' . $extensionKey . $languageSubpath . 'locallang_db.xlf:tx_mbiproductscategories_mm.uid_foreign',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'foreign_table' => 'tt_products_cat',
+                'foreign_table' => $foreignTable,
                 'maxitems' => 1,
                 'default' => 0
             ]
@@ -57,13 +60,5 @@ $result = [
         ]
     ]
 ];
-
-if (
-    defined('TYPO3_version') &&
-    version_compare(TYPO3_version, '10.0.0', '<')
-) {
-    $result['interface'] = [];
-    $result['interface']['showRecordFieldList'] = 'uid_local,uid_foreign';
-}
 
 return $result;

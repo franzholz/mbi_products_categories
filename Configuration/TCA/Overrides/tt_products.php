@@ -2,6 +2,7 @@
 defined('TYPO3') || die('Access denied.');
 
 call_user_func(function($extensionKey, $table)
+{
     if (!\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_products')) {
         return;
     }
