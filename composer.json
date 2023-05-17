@@ -23,8 +23,7 @@
     "GPL-2.0-or-later"
   ],
   "require": {
-    "typo3/cms-core": "^10.4 || ^11.5 || ^12.4",
-    "jambagecom/div2007": "^1.12"
+    "typo3/cms-core": "^10.4 || ^11.5 || ^12.4"
   },
   "suggest": {
     "jambagecom/tt-products": ">=2.14.1,<3.5",

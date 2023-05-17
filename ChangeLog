@@ -1,4 +1,5 @@
 2023-05-17 Franz Holzinger  <franz@tt_products.de>
+    * remove dependency from div2007
 	* add support for TYPO3 12.4
 
 2022-11-21 Franz Holzinger  <franz@tt_products.de>

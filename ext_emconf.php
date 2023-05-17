@@ -17,8 +17,7 @@ $EM_CONF[$_EXTKEY] = [
     'version' => '0.8.0',
     'constraints' => [
         'depends' => [
-            'div2007' => '1.12.0-0.0.0',
-            'typo3' => '10.4.0-12.4.99',
+            'typo3' => '10.4.0-12.4.99'
         ],
         'suggests' => [
             'tt_products' => '2.14.1-3.9.99',
