@@ -114,7 +114,7 @@ class tx_nsbcat2menu_pi1 extends AbstractPlugin implements SingletonInterface
         return $rc;
     }
     //used by the session menuArray
-    public function markActive(&$menuArray, $actCatArr)
+    public function markActive(&$menuArray, $actCatArr): void
     {
         while(current($actCatArr)) {
             reset($menuArray);
@@ -183,7 +183,7 @@ class tx_nsbcat2menu_pi1 extends AbstractPlugin implements SingletonInterface
         return $ret;
     }
 
-    public function getHref(&$menuArray)
+    public function getHref(&$menuArray): void
     {
         if($this->conf['recSel']) {
             $this->internal['recSelreg'] = $menuArray['uid'];
@@ -195,7 +195,7 @@ class tx_nsbcat2menu_pi1 extends AbstractPlugin implements SingletonInterface
         }
     }
 
-    public function getRecHref($menuArray)
+    public function getRecHref($menuArray): void
     {
         foreach($this->internal['catArr'] as $v) {
             if($menuArray['uid'] == $v[$this->conf['parentEntry']]) {
@@ -220,7 +220,7 @@ class tx_nsbcat2menu_pi1 extends AbstractPlugin implements SingletonInterface
         return $lightMenuArray;
     }
 
-    public function lightenSubMenu(&$lightMenuArray, $menuArray)
+    public function lightenSubMenu(&$lightMenuArray, $menuArray): void
     {
         while ([$key, $val] = each($menuArray)) {
             $lightMenuArray[$key]['title'] = $menuArray[$key]['title'];

@@ -49,7 +49,7 @@ class DmHooks
         $id,
         &$fieldArray,
         $pObj
-    ) {
+    ): void {
         if (strpos($table, 'tt_products') === 0) {
             $row = $pObj->datamap[$table][$id];
             switch ($table) {

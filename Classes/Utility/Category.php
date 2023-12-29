@@ -135,7 +135,7 @@ class Category implements SingletonInterface
     }
 
 
-    public function addConfCatProduct($prodObject, $catObject, &$selectConf, $aliasArray)
+    public function addConfCatProduct($prodObject, $catObject, &$selectConf, $aliasArray): void
     {
         $catTableObj = $catObject->getTableObj();
         $prodAlias = $prodObject->getAlias();
@@ -149,7 +149,7 @@ class Category implements SingletonInterface
         $this->addConfAdditionalTables($prodObject, $catObject, $selectConf);
     }
 
-    public function addConfAdditionalTables($prodObject, $catObject, &$selectConf)
+    public function addConfAdditionalTables($prodObject, $catObject, &$selectConf): void
     {
         $prodTableObj = $prodObject->getTableObj();
         $catTableObj = $catObject->getTableObj();
@@ -223,7 +223,7 @@ class Category implements SingletonInterface
         $pid_list,
         $depth = 1,
         $andCat = ''
-    ) {
+    ): void {
         $uids = '';
         $oldUidArray = $uidArray;
         $newUidArray =
