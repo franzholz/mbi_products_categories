@@ -75,8 +75,7 @@ call_user_func(function ($extensionKey, $table) {
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
             $foreigntable,
-            $tempColumns,
-            1
+            $tempColumns
         );
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
             $foreigntable,

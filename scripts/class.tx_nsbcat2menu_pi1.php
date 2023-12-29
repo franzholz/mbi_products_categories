@@ -94,8 +94,7 @@ class tx_nsbcat2menu_pi1 extends AbstractPlugin implements SingletonInterface
                     $whereClause,
                     $groupBy,
                     $orderBy,
-                    $limit,
-                    $lineCatArray
+                    $limit
                 );
             foreach ($lineCatArray as $value) {
                 $this->internal['catArr'][$value]['ITEM_STATE'] = 'ACT';
@@ -119,7 +118,7 @@ class tx_nsbcat2menu_pi1 extends AbstractPlugin implements SingletonInterface
     {
         while(current($actCatArr)) {
             reset($menuArray);
-            while (list($key, $val) = each($menuArray)) {
+            while ([$key, $val] = each($menuArray)) {
                 if(current($actCatArr) == $menuArray[$key]['uid']) {
                     $menuArray[$key]['ITEM_STATE' ] = 'ACT';
                 }
@@ -223,7 +222,7 @@ class tx_nsbcat2menu_pi1 extends AbstractPlugin implements SingletonInterface
 
     public function lightenSubMenu(&$lightMenuArray, $menuArray)
     {
-        while (list($key, $val) = each($menuArray)) {
+        while ([$key, $val] = each($menuArray)) {
             $lightMenuArray[$key]['title'] = $menuArray[$key]['title'];
             $lightMenuArray[$key]['_OVERRIDE_HREF'] = $menuArray[$key]['_OVERRIDE_HREF'];
             $lightMenuArray[$key]['ITEM_STATE'] = $menuArray[$key]['ITEM_STATE'];
