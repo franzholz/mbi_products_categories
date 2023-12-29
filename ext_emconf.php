@@ -10,7 +10,6 @@ $EM_CONF[$_EXTKEY] = [
     'description' => 'Hierarchical categories for tt_products. Works with tt_products and other tables.',
     'category' => 'misc',
     'state' => 'stable',
-    'clearCacheOnLoad' => 0,
     'author' => 'Franz Holzinger',
     'author_email' => 'franz@ttproducts.de',
     'author_company' => '',
