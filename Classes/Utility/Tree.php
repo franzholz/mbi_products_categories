@@ -40,65 +40,64 @@ namespace JambageCom\MbiProductsCategories\Utility;
  */
 
 
-class Tree implements \TYPO3\CMS\Core\SingletonInterface {
-
-    public function fixRecursion ($table, $uid, array $newRow, $parentField, array $endArray)
+class Tree implements \TYPO3\CMS\Core\SingletonInterface
+{
+    public function fixRecursion($table, $uid, array $newRow, $parentField, array $endArray)
     {
-		$uidArray = [];
-		$cat = $uid;
-		$count = 0;
+        $uidArray = [];
+        $cat = $uid;
+        $count = 0;
 
-		$where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($table);
-		$where_clause = 'uid = ' . intval($cat) . ' ' . $where;
-		// Fetching the categories
-		$rowArray =
-			$GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-				'uid cat, ' . $parentField . ' uid_parent',
-				$table,
-				$where_clause
-			);
+        $where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($table);
+        $where_clause = 'uid = ' . intval($cat) . ' ' . $where;
+        // Fetching the categories
+        $rowArray =
+            $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+                'uid cat, ' . $parentField . ' uid_parent',
+                $table,
+                $where_clause
+            );
 
         if (
-			isset($rowArray) &&
-			is_array($rowArray) &&
-			isset($rowArray['0']) &&
-			isset($rowArray['0']['uid_parent']) &&
-			$rowArray['0']['uid_parent'] != $newRow[$parentField]
-		) {
-			$formerParent = intval($rowArray['0']['uid_parent']);
-			$endArray[] = $cat;
-			$endArray[] = $formerParent;
-			$parent = $newRow[$parentField];
-			$uidArray = [];
-			$count = 0;
+            isset($rowArray) &&
+            is_array($rowArray) &&
+            isset($rowArray['0']) &&
+            isset($rowArray['0']['uid_parent']) &&
+            $rowArray['0']['uid_parent'] != $newRow[$parentField]
+        ) {
+            $formerParent = intval($rowArray['0']['uid_parent']);
+            $endArray[] = $cat;
+            $endArray[] = $formerParent;
+            $parent = $newRow[$parentField];
+            $uidArray = [];
+            $count = 0;
 
-			do {
-				$where_clause = 'uid = ' . intval($parent) . ' ' . $where;
-				// Fetching the categories
-				$rowArray =
-					$GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-						'uid cat, ' . $parentField . ' uid_parent',
-						$table,
-						$where_clause
-					);
-				$row = $rowArray[0];
-				$parent = $row['uid_parent'];
-				$count++;
-			} while ($parent && !in_array($parent, $endArray) && $count <= 500);
+            do {
+                $where_clause = 'uid = ' . intval($parent) . ' ' . $where;
+                // Fetching the categories
+                $rowArray =
+                    $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+                        'uid cat, ' . $parentField . ' uid_parent',
+                        $table,
+                        $where_clause
+                    );
+                $row = $rowArray[0];
+                $parent = $row['uid_parent'];
+                $count++;
+            } while ($parent && !in_array($parent, $endArray) && $count <= 500);
 
-			if ($parent == $uid) { // loop detected
-				$uidArray[] = $parent;
-				$fields_values = [];
-				$fields_values[$parentField] = $formerParent; // Make the former parent of the current record the parent of the found record. This will remove the recursive loop.
-				$GLOBALS['TYPO3_DB']->exec_UPDATEquery(
-					$table,
-					$where_clause,
-					$fields_values
-				);
-			}
-		}
+            if ($parent == $uid) { // loop detected
+                $uidArray[] = $parent;
+                $fields_values = [];
+                $fields_values[$parentField] = $formerParent; // Make the former parent of the current record the parent of the found record. This will remove the recursive loop.
+                $GLOBALS['TYPO3_DB']->exec_UPDATEquery(
+                    $table,
+                    $where_clause,
+                    $fields_values
+                );
+            }
+        }
 
-		return $uidArray;
-	}
+        return $uidArray;
+    }
 }
-

@@ -34,13 +34,12 @@ namespace JambageCom\MbiProductsCategories\View;
 * @subpackage mbi_products_categories
 */
 
-    /**
-    * extend class AbstractTreeView to change function wrapTitle().
-    *
-    */
+/**
+* extend class AbstractTreeView to change function wrapTitle().
+*
+*/
 class TceFuncTreeView extends \TYPO3\CMS\Backend\Tree\View\AbstractTreeView
 {
-
     public $TCEforms_itemFormElName = '';
     public $TCEforms_nonSelectableItemsArray = [];
 
@@ -51,7 +50,7 @@ class TceFuncTreeView extends \TYPO3\CMS\Backend\Tree\View\AbstractTreeView
     * @param	array		$v: an array with uid and title of the current item.
     * @return	string		the wrapped title
     */
-    public function wrapTitle ($title, $v)
+    public function wrapTitle($title, $v)
     {
         if($v['uid'] > 0) {
             if (
@@ -76,10 +75,9 @@ class TceFuncTreeView extends \TYPO3\CMS\Backend\Tree\View\AbstractTreeView
     * @return	string		The processed icon input value.
     * @access private
     */
-    public function wrapIcon ($icon, $row)
+    public function wrapIcon($icon, $row)
     {
         $theIcon = '<a href="#">' . $icon . '</a>';
         return $theIcon;
     }
 }
-

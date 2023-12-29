@@ -1,8 +1,8 @@
 <?php
+
 defined('TYPO3') || die('Access denied.');
 
-call_user_func(function($extensionKey, $table)
-{
+call_user_func(function ($extensionKey, $table) {
     $languageSubpath = '/Resources/Private/Language/';
 
     if (!\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_products')) {
@@ -29,7 +29,7 @@ call_user_func(function($extensionKey, $table)
         $expandAll = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['expandAll'];
     }
 
-    $expandAll = (boolean) $expandAll;
+    $expandAll = (bool) $expandAll;
 
     if (
         isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['where.']) &&
@@ -63,7 +63,7 @@ call_user_func(function($extensionKey, $table)
                         'parentField' => $parentfield,
                         'appearance' => [
                             'expandAll' => $expandAll,
-                            'showHeader' => TRUE,
+                            'showHeader' => true,
                             'maxLevels' => 99,
                         ]
                     ],
@@ -86,4 +86,3 @@ call_user_func(function($extensionKey, $table)
         );
     }
 }, 'mbi_products_categories', basename(__FILE__, '.php'));
-

@@ -40,36 +40,35 @@ namespace JambageCom\MbiProductsCategories\Hooks;
  *
  */
 
-class DmHooks {
-
-	public function processDatamap_postProcessFieldArray(
-        $status, 
+class DmHooks
+{
+    public function processDatamap_postProcessFieldArray(
+        $status,
         $table,
         $id,
         &$fieldArray,
         $pObj
-    )
-	{
-		if (strpos($table, 'tt_products') === 0) {
-			$row = $pObj->datamap[$table][$id];
-			switch ($table) {
-				case 'tt_products':
-					$catArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $row['category']);
-					reset($catArray);
-					$fieldArray['category'] = intval(current($catArray));
-				break;
-				case 'tt_products_cat':
+    ) {
+        if (strpos($table, 'tt_products') === 0) {
+            $row = $pObj->datamap[$table][$id];
+            switch ($table) {
+                case 'tt_products':
+                    $catArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $row['category']);
+                    reset($catArray);
+                    $fieldArray['category'] = intval(current($catArray));
+                    break;
+                case 'tt_products_cat':
                     $tree = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\JambageCom\MbiProductsCategories\Utility\Tree::class);
 
-					$tree->fixRecursion(
-						$table,
-						$id,
-						$row,
-						'parent_category',
-						['0']
-					);
-				break;
-			}
-		}
-	}
+                    $tree->fixRecursion(
+                        $table,
+                        $id,
+                        $row,
+                        'parent_category',
+                        ['0']
+                    );
+                    break;
+            }
+        }
+    }
 }

@@ -1,8 +1,8 @@
 <?php
+
 defined('TYPO3') || die('Access denied.');
 
-call_user_func(function($extensionKey, $table)
-{
+call_user_func(function ($extensionKey, $table) {
     if (!\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_products')) {
         return;
     }
@@ -19,8 +19,7 @@ call_user_func(function($extensionKey, $table)
     if (
         isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]) &&
         is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey])
-    )
-    {
+    ) {
         $pid_list = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['pid_list'];
         $refTable = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['table'];
         $mmTable = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['mmtable'];
@@ -28,14 +27,13 @@ call_user_func(function($extensionKey, $table)
         $expandAll = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['expandAll'];
     }
 
-    $expandAll = (boolean) $expandAll;
+    $expandAll = (bool) $expandAll;
 
     if (
         isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['where.']) &&
         is_array($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['where.']) &&
         isset($GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['where.']['category'])
-    )
-    {
+    ) {
         $whereCategory = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF'][$extensionKey]['where.']['category'];
     }
 
@@ -44,8 +42,7 @@ call_user_func(function($extensionKey, $table)
         $mmTable &&
         $field &&
         $parentfield
-    )
-    {
+    ) {
         $where = ($pid_list != '' ? ' AND ' . $foreigntable . '.pid IN (' . $pid_list . ') ' : '') . $whereCategory;
         $where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($foreigntable);
 

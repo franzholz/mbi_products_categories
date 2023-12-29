@@ -37,12 +37,12 @@
 */
 
 
-    /**
-    * deprecated and unused
-    *
-    * this class displays a tree selector with nested table categories.
-    *
-    */
+/**
+* deprecated and unused
+*
+* this class displays a tree selector with nested table categories.
+*
+*/
 class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
 {
     public $pid_list; // list of allowed page ids
@@ -55,7 +55,7 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
     * @param	object	$fobj: Reference to the parent object
     * @return	string	the HTML code for the field
     */
-    public function displayCategoryTree ($PA, $fobj)
+    public function displayCategoryTree($PA, $fobj)
     {
         $extensionKey = 'mbi_products_categories';
         $errorMsg = [];
@@ -63,7 +63,7 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
         $field = $PA['field'];
         $row = $PA['row'];
 
-            // Field configuration from TCA:
+        // Field configuration from TCA:
         $config = $PA['fieldConf']['config'];
         $TSconfig = \TYPO3\CMS\Backend\Utility\BackendUtility::getTCEFORM_TSconfig(
             $table,
@@ -82,10 +82,10 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
             $this->pid_list = $TSconfig['_STORAGE_PID'];
         }
 
-            // Field configuration from TCA:
+        // Field configuration from TCA:
         $config = $PA['fieldConf']['config'];
 
-            // Getting the selector box items from the system
+        // Getting the selector box items from the system
         $selItems = $this->pObj->addSelectOptionsToItemArray(
             $this->pObj->initItemArray($PA['fieldConf']),
             $PA['fieldConf'],
@@ -99,17 +99,17 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
             );
         #if ($config['itemsProcFunc']) $selItems = $this->pObj->procItems($selItems,$PA['fieldTSConfig']['itemsProcFunc.'],$config,$table,$row,$field);
 
-            // Possibly remove some items:
+        // Possibly remove some items:
         $removeItems = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $PA['fieldTSConfig']['removeItems'], 1);
 
         foreach($selItems as $tk => $p) {
             if (in_array($p[1], $removeItems)) {
                 unset($selItems[$tk]);
-            } else if (isset($PA['fieldTSConfig']['altLabels.'][$p[1]])) {
+            } elseif (isset($PA['fieldTSConfig']['altLabels.'][$p[1]])) {
                 $selItems[$tk][0] = $this->pObj->sL($PA['fieldTSConfig']['altLabels.'][$p[1]]);
             }
 
-                // Removing doktypes with no access:
+            // Removing doktypes with no access:
             if ($table . '.' . $field == 'pages.doktype') {
                 if (!($GLOBALS['BE_USER']->isAdmin() || \TYPO3\CMS\Core\Utility\GeneralUtility::inList($GLOBALS['BE_USER']->groupData['pagetypes_select'], $p[1]))) {
                     unset($selItems[$tk]);
@@ -117,16 +117,16 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
             }
         }
 
-            // Creating the label for the "No Matching Value" entry.
+        // Creating the label for the "No Matching Value" entry.
         $nMV_label = isset($PA['fieldTSConfig']['noMatchingValue_label']) ? $this->pObj->sL($PA['fieldTSConfig']['noMatchingValue_label']) : '[ ' . $this->pObj->getLL('l_noMatchingValue') . ' ]';
         $nMV_label = @sprintf($nMV_label, $PA['itemFormElValue']);
 
-            // Prepare some values:
+        // Prepare some values:
         $maxitems = intval($config['maxitems']);
         $minitems = intval($config['minitems']);
         $size = intval($config['size']);
-            // If a SINGLE selector box...
-        if ($maxitems <= 1 AND !$config['treeView']) {
+        // If a SINGLE selector box...
+        if ($maxitems <= 1 and !$config['treeView']) {
         } else {
             $item = '';
             if (
@@ -146,10 +146,11 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                     $notAllowedItems = $this->getNotAllowedItems($PA, $SPaddWhere . $wherePid);
                 }
 
-                    // get categories of the translation original
-                $catres = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query (
+                // get categories of the translation original
+                $catres = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query(
                     $config['foreign_table'] . '.uid,' . $config['foreign_table'] . '.title,' . $config['MM'] . '.sorting AS mmsorting',
-                    $table, $config['MM'],
+                    $table,
+                    $config['MM'],
                     $config['foreign_table'],
                     ' AND ' . $config['MM'] . 'uid_local=' . $row['l18n_parent'] . $SPaddWhere . $wherePid,
                     '',
@@ -157,12 +158,12 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                 );
                 $categories = [];
                 $NACats = [];
-                $na = FALSE;
+                $na = false;
                 while ($catrow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($catres)) {
 
                     if(in_array($catrow['uid'], $notAllowedItems)) {
                         $categories[$catrow['uid']] = $NACats[] = '<p style="padding:0px;color:red;font-weight:bold;">- ' . $catrow['title'] . ' <span class="typo3-dimmed"><em>[' . $catrow['uid'] . ']</em></span></p>';
-                        $na = TRUE;
+                        $na = true;
                     } else {
                         $categories[$catrow['uid']] = '<p style="padding:0px;">- ' . $catrow['title'] . ' <span class="typo3-dimmed"><em>[' . $catrow['uid'] . ']</em></span></p>';
                     }
@@ -182,7 +183,7 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
             } else { // build tree selector
                 $item .= '<input type="hidden" name="' . $PA['itemFormElName'] . '_mul" value="' . ($config['multiple'] ? 1 : 0) . '" />';
 
-                    // Set max and min items:
+                // Set max and min items:
                 $maxitems = \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($config['maxitems'], 0);
                 if (!$maxitems) {
                     $maxitems = 100000;
@@ -190,10 +191,10 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
 
                 $minitems = \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($config['minitems'], 0);
 
-                    // Register the required number of elements:
+                // Register the required number of elements:
                 $this->pObj->requiredElements[$PA['itemFormElName']] = array($minitems, $maxitems, 'imgName' => $table . '_' . $row['uid'] . '_' . $field);
 
-//              $errorMsg = [$minitems, $maxitems, 'imgName' => $table . '_' . $row['uid'] . '_' . $field];
+                //              $errorMsg = [$minitems, $maxitems, 'imgName' => $table . '_' . $row['uid'] . '_' . $field];
 
                 if($config['treeView'] && $config['foreign_table']) {
                     if ($this->pid_list) {
@@ -246,7 +247,7 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
 
                     // $treeViewObj->orderByFields = str_replace('ORDER BY ','', $GLOBALS['TCA'][$config['foreign_table']]['ctrl']['default_sortby']);
 
-                        // get default items
+                    // get default items
                     $defItems = [];
                     if (
                         $table == 'tt_content' &&
@@ -256,7 +257,7 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                         in_array($row['list_type'], array(5, 9)) &&
                         $field == 'pi_flexform'
                     ) {
-                        foreach($config['items'] as $itemValue)	{
+                        foreach($config['items'] as $itemValue) {
                             if ($itemValue[0]) {
                                 $ITitle = $this->pObj->sL($itemValue[0]);
                                 $defItems[] = '<a href="#" onclick="setFormValueFromBrowseWin(\'data[' . $table . '][' . $row['uid'] . '][' . $field . '][data][sDEF][lDEF][categorySelection][vDEF]\',' . $itemValue[1] . ',\'' . $ITitle . '\'); return FALSE;" style="text-decoration:none;">' . $ITitle . '</a>';
@@ -264,7 +265,7 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                         }
                     }
 
-                        // render tree html
+                    // render tree html
                     $treeContent = $treeViewObj->getBrowsableTree();
                     $treeItemC = count($treeViewObj->ids);
 
@@ -275,21 +276,21 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                             </tr></table>';
                     }
 
-                        // find recursive categories or "storagePid" related errors and if there are some, add a message to the $errorMsg array.
+                    // find recursive categories or "storagePid" related errors and if there are some, add a message to the $errorMsg array.
                     $errorMsg = $this->findRecursiveCategories($PA, $row, $table, $storagePid, $treeViewObj->ids);
 
                     $width = ($config['width'] ? $config['width'] : 280); // default width for the field with the category tree
-/* 					if (intval($confArr['categoryTreeWidth'])) { // if a value is set in extConf take this one. */
-/* 						$width = \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($confArr['categoryTreeWidth'], 1, 600);   */
-/* 					} else */
+                    /* 					if (intval($confArr['categoryTreeWidth'])) { // if a value is set in extConf take this one. */
+                    /* 						$width = \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($confArr['categoryTreeWidth'], 1, 600);   */
+                    /* 					} else */
                     if ($GLOBALS['CLIENT']['BROWSER'] == 'msie') { // to suppress the unneeded horizontal scrollbar IE needs a width of at least 320px
                         $width = 320;
                     }
 
                     $config['autoSizeMax'] = \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($config['autoSizeMax'], 0);
-                    $height = $config['autoSizeMax'] ? \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($treeItemC + 2,  \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($size, 1), $config['autoSizeMax']) : $size;
+                    $height = $config['autoSizeMax'] ? \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($treeItemC + 2, \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($size, 1), $config['autoSizeMax']) : $size;
 
-                        // hardcoded: 16 is the height of the icons
+                    // hardcoded: 16 is the height of the icons
                     $height = $height * 16;
 
                     $divStyle = 'position:relative; left:0px; top:0px; height:' . $height . 'px; width:' . $width . 'px;border:solid 1px;overflow:auto;background:#fff;margin-bottom:5px;';
@@ -297,9 +298,9 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                     $thumbnails .= $treeContent;
                     $thumbnails .= '</div>';
                 } else {
-                    $sOnChange = 'setFormValueFromBrowseWin(\'' . $PA['itemFormElName'] . '\',this.options[this.selectedIndex].value,this.options[this.selectedIndex].text); ' . implode('',$PA['fieldChangeFunc']);
+                    $sOnChange = 'setFormValueFromBrowseWin(\'' . $PA['itemFormElName'] . '\',this.options[this.selectedIndex].value,this.options[this.selectedIndex].text); ' . implode('', $PA['fieldChangeFunc']);
 
-                        // Put together the select form with selected elements:
+                    // Put together the select form with selected elements:
                     $selector_itemListStyle = isset($config['itemListStyle']) ? ' style="' . htmlspecialchars($config['itemListStyle']) . '"' : ' style="' . $this->pObj->defaultMultipleSelectorStyle . '"';
 
                     $size = $config['autoSizeMax'] ? \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange(count($itemArray) + 1, \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($size, 1), $config['autoSizeMax']) : $size;
@@ -312,7 +313,7 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                     $thumbnails .= '</select>';
                 }
 
-                    // Perform modification of the selected items array:
+                // Perform modification of the selected items array:
                 $itemArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $PA['itemFormElValue'], 1);
 
                 foreach($itemArray as $tk => $tv) {
@@ -336,9 +337,9 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                 }
 
                 $sWidth = 150; // default width for the left field of the category select
-/* 				if (intval($confArr['categorySelectedWidth'])) { */
-/* 					$sWidth = \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($confArr['categorySelectedWidth'], 1, 600); */
-/* 				} */
+                /* 				if (intval($confArr['categorySelectedWidth'])) { */
+                /* 					$sWidth = \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($confArr['categorySelectedWidth'], 1, 600); */
+                /* 				} */
                 $params = [
                     'size' => $size,
                     'autoSizeMax' => \TYPO3\CMS\Core\Utility\MathUtility::forceIntegerInRange($config['autoSizeMax'], 0),
@@ -397,15 +398,15 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
     * @return	array		array with not allowed categories
     * @see tx_ttnews_tceFunc_selectTreeView::wrapTitle()
     */
-    public function getNotAllowedItems ($PA, $SPaddWhere = '')
+    public function getNotAllowedItems($PA, $SPaddWhere = '')
     {
         $fTable = $PA['fieldConf']['config']['foreign_table'];
-            // get list of allowed categories for the current BE user
+        // get list of allowed categories for the current BE user
         $allowedItemsList = $GLOBALS['BE_USER']->getTSConfigVal('tt_productsPerms.' . $fTable . '.allowedItems');
 
         $itemArr = [];
         if ($allowedItemsList) {
-                // get all categories
+            // get all categories
             $res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('uid', $fTable, '1=1' . $SPaddWhere . ' AND NOT deleted');
             while ($row = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)) {
                 if(
@@ -420,11 +421,11 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                 foreach ($catvals as $k) {
                     $c = explode('|', $k);
                     if($c[0] && !\TYPO3\CMS\Core\Utility\GeneralUtility::inList($allowedItemsList, $c[0])) {
-                        $notAllowedCats[]= '<p style="padding:0px;color:red;font-weight:bold;">- ' . $c[1] . ' <span class="typo3-dimmed"><em>[' . $c[0] . ']</em></span></p>';
+                        $notAllowedCats[] = '<p style="padding:0px;color:red;font-weight:bold;">- ' . $c[1] . ' <span class="typo3-dimmed"><em>[' . $c[0] . ']</em></span></p>';
                     }
                 }
                 if ($notAllowedCats[0]) {
-                    $this->NA_Items = '<table class="warningbox" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td><img src="gfx/icon_fatalerror.gif" class="absmiddle" alt="" height="16" width="18">SAVING DISABLED!! <br />This record has the following categories assigned that are not defined in your BE usergroup: '.implode($notAllowedCats,chr(10)).'</td></tr></tbody></table>';
+                    $this->NA_Items = '<table class="warningbox" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td><img src="gfx/icon_fatalerror.gif" class="absmiddle" alt="" height="16" width="18">SAVING DISABLED!! <br />This record has the following categories assigned that are not defined in your BE usergroup: '.implode($notAllowedCats, chr(10)).'</td></tr></tbody></table>';
                 }
             }
         }
@@ -442,9 +443,9 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
     * @param	array		$treeIds: array with the ids of the categories in the tree
     * @return	array		error messages
     */
-    public function findRecursiveCategories ($PA, $row, $table, $storagePid, $treeIds)
+    public function findRecursiveCategories($PA, $row, $table, $storagePid, $treeIds)
     {
-            // Field configuration from TCA:
+        // Field configuration from TCA:
         $config = $PA['fieldConf']['config'];
 
         $errorMsg = [];
@@ -455,8 +456,10 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
         ) { // = tt_content element which inserts plugin of the extension
 
             if (
-                in_array($row['list_type'],
-                ['5', '9', 'tt_products_pi_int'])
+                in_array(
+                    $row['list_type'],
+                    ['5', '9', 'tt_products_pi_int']
+                )
             ) {
                 $cfgArr = \TYPO3\CMS\Core\Utility\GeneralUtility::xml2array($row['pi_flexform']);
 
@@ -533,7 +536,7 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
     * @param	string		$catString: the selected categories in a string (format: uid|title,uid|title,...)
     * @return	string		list of recursive categories
     */
-    public function compareCategoryVals ($treeIds, $catString)
+    public function compareCategoryVals($treeIds, $catString)
     {
         $recursiveCategories = [];
         $showncats = implode($treeIds, ','); // the displayed categories (tree)
@@ -567,7 +570,7 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
     * @param	object		$fobj: Reference to the parent object
     * @return	string		the HTML code for the field and the error message
     */
-    public function displayTypeFieldCheckCategories (&$PA, $fobj)
+    public function displayTypeFieldCheckCategories(&$PA, $fobj)
     {
         $SPaddWhere = '';
         $config = $PA['fieldConf']['config'];
@@ -586,11 +589,12 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
             $notAllowedItems = $this->getNotAllowedItems($PA, $SPaddWhere);
 
             if ($notAllowedItems[0]) {
-                    // get categories of the record in db
+                // get categories of the record in db
                 $uidField = $row['l18n_parent'] && $row['sys_language_uid'] ? $row['l18n_parent'] : $row['uid'];
                 $catres = $GLOBALS['TYPO3_DB']->exec_SELECT_mm_query(
                     $config['foreign_table'] . '.uid,' . $config['foreign_table'] . '.title,' . $config['MM'] . '.sorting AS mmsorting',
-                    $table, $config['MM'],
+                    $table,
+                    $config['MM'],
                     $config['foreign_table'],
                     ' AND ' . $config['MM'] . '.uid_local=' . $uidField . $SPaddWhere,
                     '',
@@ -600,15 +604,15 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
                 $NACats = [];
                 while ($catrow = $GLOBALS['TYPO3_DB']->sql_fetch_assoc($catres)) {
                     if($catrow['uid'] && $notAllowedItems[0] && in_array($catrow['uid'], $notAllowedItems)) {
-                        $NACats[]= '<p style="padding:0px;color:red;font-weight:bold;">- ' . $catrow['title'] . ' <span class="typo3-dimmed"><em>[' . $catrow['uid'] . ']</em></span></p>';
+                        $NACats[] = '<p style="padding:0px;color:red;font-weight:bold;">- ' . $catrow['title'] . ' <span class="typo3-dimmed"><em>[' . $catrow['uid'] . ']</em></span></p>';
                     }
                 }
                 if($NACats[0]) {
-                    $NA_Items =  '<table class="warningbox" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td><img src="gfx/icon_fatalerror.gif" class="absmiddle" alt="" height="16" width="18">SAVING DISABLED!! <br />'.($row['l18n_parent'] && $row['sys_language_uid']?'The translation original of this':'This').' record has the following categories assigned that are not defined in your BE usergroup: ' . implode($NACats, chr(10)) . '</td></tr></tbody></table>';
+                    $NA_Items =  '<table class="warningbox" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td><img src="gfx/icon_fatalerror.gif" class="absmiddle" alt="" height="16" width="18">SAVING DISABLED!! <br />'.($row['l18n_parent'] && $row['sys_language_uid'] ? 'The translation original of this' : 'This').' record has the following categories assigned that are not defined in your BE usergroup: ' . implode($NACats, chr(10)) . '</td></tr></tbody></table>';
                 }
             }
         }
-            // unset foreign table to prevent adding of categories to the "type" field
+        // unset foreign table to prevent adding of categories to the "type" field
         $PA['fieldConf']['config']['foreign_table'] = '';
         $PA['fieldConf']['config']['foreign_table_where'] = '';
         if (!$row['l18n_parent'] && !$row['sys_language_uid']) { // render "type" field only for records in the default language
@@ -617,4 +621,3 @@ class TreeSelector implements \TYPO3\CMS\Core\SingletonInterface
         return $NA_Items . $fieldHTML;
     }
 }
-

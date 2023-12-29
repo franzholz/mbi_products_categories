@@ -2,7 +2,6 @@
 
 namespace JambageCom\MbiProductsCategories\Utility;
 
-
 /***************************************************************
 *  Copyright notice
 *
@@ -41,16 +40,16 @@ namespace JambageCom\MbiProductsCategories\Utility;
  */
 
 
-class ItemArray {
-    public function procFunc ($menuArr, $conf)
+class ItemArray
+{
+    public function procFunc($menuArr, $conf)
     {
-		$where_clause = '';
-		$rowArray = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-			'*',
-			'tt_products_cat',
-			$where_clause
-		);
-		return $menuArr;
-	}
+        $where_clause = '';
+        $rowArray = $GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
+            '*',
+            'tt_products_cat',
+            $where_clause
+        );
+        return $menuArr;
+    }
 }
-
