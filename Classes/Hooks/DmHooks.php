@@ -2,6 +2,8 @@
 
 namespace JambageCom\MbiProductsCategories\Hooks;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use JambageCom\MbiProductsCategories\Utility\Tree;
 /***************************************************************
 *  Copyright notice
 *
@@ -39,7 +41,6 @@ namespace JambageCom\MbiProductsCategories\Hooks;
  * @maintainer	Franz Holzinger <franz@ttproducts.de>
  *
  */
-
 class DmHooks
 {
     public function processDatamap_postProcessFieldArray(
@@ -53,12 +54,12 @@ class DmHooks
             $row = $pObj->datamap[$table][$id];
             switch ($table) {
                 case 'tt_products':
-                    $catArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $row['category']);
+                    $catArray = GeneralUtility::trimExplode(',', $row['category']);
                     reset($catArray);
                     $fieldArray['category'] = intval(current($catArray));
                     break;
                 case 'tt_products_cat':
-                    $tree = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\JambageCom\MbiProductsCategories\Utility\Tree::class);
+                    $tree = GeneralUtility::makeInstance(Tree::class);
 
                     $tree->fixRecursion(
                         $table,

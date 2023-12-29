@@ -2,6 +2,8 @@
 
 namespace JambageCom\MbiProductsCategories\Utility;
 
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 /***************************************************************
 *  Copyright notice
 *
@@ -38,9 +40,7 @@ namespace JambageCom\MbiProductsCategories\Utility;
  *
  *
  */
-
-
-class Tree implements \TYPO3\CMS\Core\SingletonInterface
+class Tree implements SingletonInterface
 {
     public function fixRecursion($table, $uid, array $newRow, $parentField, array $endArray)
     {
@@ -48,7 +48,7 @@ class Tree implements \TYPO3\CMS\Core\SingletonInterface
         $cat = $uid;
         $count = 0;
 
-        $where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($table);
+        $where .= BackendUtility::BEenableFields($table);
         $where_clause = 'uid = ' . intval($cat) . ' ' . $where;
         // Fetching the categories
         $rowArray =

@@ -2,6 +2,7 @@
 
 namespace JambageCom\MbiProductsCategories\View;
 
+use TYPO3\CMS\Backend\Tree\View\AbstractTreeView;
 /***************************************************************
 *  Copyright notice
 *
@@ -33,12 +34,11 @@ namespace JambageCom\MbiProductsCategories\View;
 * @package TYPO3
 * @subpackage mbi_products_categories
 */
-
 /**
 * extend class AbstractTreeView to change function wrapTitle().
 *
 */
-class TceFuncTreeView extends \TYPO3\CMS\Backend\Tree\View\AbstractTreeView
+class TceFuncTreeView extends AbstractTreeView
 {
     public $TCEforms_itemFormElName = '';
     public $TCEforms_nonSelectableItemsArray = [];

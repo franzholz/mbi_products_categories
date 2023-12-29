@@ -38,10 +38,11 @@ namespace JambageCom\MbiProductsCategories\Utility;
  *
  *
  */
-
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class Category implements \TYPO3\CMS\Core\SingletonInterface
+class Category implements SingletonInterface
 {
     public function addWhereCat(
         $prodObject,
@@ -85,7 +86,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface
     ) {
         $startCat = $cat;
         $childCatArray = [];
-        $catArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $cat);
+        $catArray = GeneralUtility::trimExplode(',', $cat);
         foreach ($catArray as $loopCat) {
             $childCatArray[$loopCat] = [];
         }
@@ -157,11 +158,11 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface
 
         if ($additionalTable != '') {
 
-            $additionalTableArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $additionalTable);
+            $additionalTableArray = GeneralUtility::trimExplode(',', $additionalTable);
             $additionalTableArray = array_diff($additionalTableArray, [$catTableObj->getName()]);
             $additionalTable = implode(',', $additionalTableArray);
             $selectConf['from'] = ($selectConf['from'] ? $selectConf['from'] . ', ' : '') . $additionalTable;
-            $tableArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $selectConf['from']);
+            $tableArray = GeneralUtility::trimExplode(',', $selectConf['from']);
             $tableArray = array_unique($tableArray);
             $selectConf['from'] = implode(',', $tableArray);
         }
@@ -179,7 +180,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface
     ) {
         $tableObj = $prodObject->getTableObj();
         $selectConf = [];
-        $local_cObj = GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
+        $local_cObj = GeneralUtility::makeInstance(ContentObjectRenderer::class);
 
         if ($where != '') {
             $selectConf['where'] = $where;
@@ -266,7 +267,7 @@ class Category implements \TYPO3\CMS\Core\SingletonInterface
                 $where
             );
 
-            $andCatArray = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $andCat);
+            $andCatArray = GeneralUtility::trimExplode(',', $andCat);
             $andCatArray = array_unique($andCatArray);
             $uids = implode(',', $newUidArray['andCat']);
 

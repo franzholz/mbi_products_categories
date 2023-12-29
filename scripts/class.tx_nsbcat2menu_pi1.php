@@ -1,4 +1,10 @@
 <?php
+
+use TYPO3\CMS\Frontend\Plugin\AbstractPlugin;
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use JambageCom\MbiProductsCategories\Utility\Category;
 /***************************************************************
 *  Copyright notice
 *
@@ -28,10 +34,7 @@
  * @author	Michael Hoppe <michael@hoppefamily.de>
  * @author	Franz Holzinger <franz@ttproducts.de>
  */
-
-
-
-class tx_nsbcat2menu_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin implements \TYPO3\CMS\Core\SingletonInterface
+class tx_nsbcat2menu_pi1 extends AbstractPlugin implements SingletonInterface
 {
     //	public $prefixId = 'tx_nsbcat2menu_pi1';		// Same as class name (used only by pivars ?)
     public $scriptRelPath = 'pi1/class.tx_nsbcat2menu_pi1.php';	// Path to this script relative to the extension dir.
@@ -60,11 +63,11 @@ class tx_nsbcat2menu_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin imple
         // I don't expect side effects
         $this->prefixId = $this->conf['extTrigger'];
         $my_vars = $GLOBALS['TSFE']->fe_user->getKey('ses', 'nsb_cat2menu');
-        $tmpAct = \TYPO3\CMS\Core\Utility\GeneralUtility::_GET($this->prefixId);
-        $tmpAct = \TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $tmpAct['cat']);
+        $tmpAct = GeneralUtility::_GET($this->prefixId);
+        $tmpAct = GeneralUtility::intExplode(',', $tmpAct['cat']);
 
-        if (\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('table')) {
-            $this->tableObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('tx_table_db');
+        if (ExtensionManagementUtility::isLoaded('table')) {
+            $this->tableObj = GeneralUtility::makeInstance('tx_table_db');
         }
 
         if(0) {
@@ -72,14 +75,14 @@ class tx_nsbcat2menu_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin imple
             $menuArray = $my_vars[$this->prefixId];
             $this->markActive($menuArray, $tmpAct);
         } else {
-            $this->conf['targetId'] = $this->conf['targetId'] ? $this->conf['targetId'] : 0;
+            $this->conf['targetId'] = $this->conf['targetId'] ?: 0;
             $table = $this->conf['catTable'];
             $pid = $this->conf['pidlist'];
             //get the whole autorized category table, the tree will be constructed later in php with makeMenuArray($rootLine)
             $whereClause = '';
             $orderBy = '';
             $limit = '';
-            $mbiObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\JambageCom\MbiProductsCategories\Utility\Category::class);
+            $mbiObj = GeneralUtility::makeInstance(Category::class);
 
             $lineCatArray = [];
             $this->internal['catArr'] =
@@ -103,7 +106,7 @@ class tx_nsbcat2menu_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin imple
                 $this->internal['catArr'][$value]['ITEM_STATE'] = 'CUR';
             }
 
-            $menuArray = $this->makeMenuArray(\TYPO3\CMS\Core\Utility\GeneralUtility::intExplode(',', $this->conf['catList']));
+            $menuArray = $this->makeMenuArray(GeneralUtility::intExplode(',', $this->conf['catList']));
             //this session storage alows different multiple instances only if the triggered extension is different
             $my_vars[$this->prefixId] = $menuArray;
             $GLOBALS["TSFE"]->fe_user->setKey('ses', 'nsb_cat2menu', $my_vars);
