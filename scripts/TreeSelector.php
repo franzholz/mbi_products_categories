@@ -144,7 +144,7 @@ class TreeSelector implements SingletonInterface
                 $notAllowedItems = [];
 
                 if (
-                    $GLOBALS['BE_USER']->getTSConfigVal('options.useListOfAllowedItems') &&
+                    ($GLOBALS['BE_USER']->getTSConfig()['options.']['useListOfAllowedItems.'] ?? null) &&
                     !$GLOBALS['BE_USER']->isAdmin()
                 ) {
                     $notAllowedItems = $this->getNotAllowedItems($PA, $SPaddWhere . $wherePid);
@@ -206,7 +206,7 @@ class TreeSelector implements SingletonInterface
                     }
 
                     if (
-                        $GLOBALS['BE_USER']->getTSConfigVal('options.useListOfAllowedItems') &&
+                        ($GLOBALS['BE_USER']->getTSConfig()['options.']['useListOfAllowedItems.'] ?? null) &&
                         !$GLOBALS['BE_USER']->isAdmin()
                     ) {
                         $notAllowedItems = $this->getNotAllowedItems($PA, $SPaddWhere . $wherePid);
@@ -406,7 +406,7 @@ class TreeSelector implements SingletonInterface
     {
         $fTable = $PA['fieldConf']['config']['foreign_table'];
         // get list of allowed categories for the current BE user
-        $allowedItemsList = $GLOBALS['BE_USER']->getTSConfigVal('tt_productsPerms.' . $fTable . '.allowedItems');
+        $allowedItemsList = $GLOBALS['BE_USER']->getTSConfig()['tt_productsPerms.']['.']['allowedItems.'] ?? null;
 
         $itemArr = [];
         if ($allowedItemsList) {
@@ -583,7 +583,7 @@ class TreeSelector implements SingletonInterface
         $row = $PA['row'];
 
         if (
-            $GLOBALS['BE_USER']->getTSConfigVal('options.useListOfAllowedItems') &&
+            ($GLOBALS['BE_USER']->getTSConfig()['options.']['useListOfAllowedItems.'] ?? null) &&
             !$GLOBALS['BE_USER']->isAdmin()
         ) {
             $notAllowedItems = [];
