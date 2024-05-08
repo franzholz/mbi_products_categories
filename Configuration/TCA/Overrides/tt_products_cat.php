@@ -45,8 +45,6 @@ call_user_func(function ($extensionKey, $table): void {
         $field
     ) {
         $where = ($pid_list != '' ? ' AND ' . $foreigntable . '.pid IN (' . $pid_list . ') ' : '') . $whereCategory;
-        $where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($foreigntable);
-
         $tempColumns = [
             'reference_category' => [
                 'exclude' => 1,

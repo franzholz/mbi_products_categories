@@ -44,7 +44,6 @@ call_user_func(function ($extensionKey, $table): void {
         $parentfield
     ) {
         $where = ($pid_list != '' ? ' AND ' . $foreigntable . '.pid IN (' . $pid_list . ') ' : '') . $whereCategory;
-        $where .= \TYPO3\CMS\Backend\Utility\BackendUtility::BEenableFields($foreigntable);
 
         $GLOBALS['TCA'][$refTable]['columns'][$field]['config'] = [
             'size' => 15,
