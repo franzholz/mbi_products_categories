@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="EXT:mbi_products_categories/Resources/Private/Language/locallang_db.xlf" date="2022-01-06T18:16:26Z" product-name="mbi_products_categories" target-language="sr">
+    <header/>
+    <body>
+      <trans-unit id="tt_products_cat" resname="tt_products_cat">
+        <source>Product category</source>
+        <target state="needs-translation">Product category</target>
+      </trans-unit>
+      <trans-unit id="tt_products_cat.parent_category" resname="tt_products_cat.parent_category">
+        <source>Parent category</source>
+        <target state="needs-translation">Parent category</target>
+      </trans-unit>
+      <trans-unit id="tt_products_cat.reference_category" resname="tt_products_cat.reference_category">
+        <source>Reference category</source>
+        <target state="needs-translation">Reference category</target>
+      </trans-unit>
+      <trans-unit id="tx_mbiproductscategories_mm" resname="tx_mbiproductscategories_mm">
+        <source>Product to category</source>
+        <target state="needs-translation">Product to category</target>
+      </trans-unit>
+      <trans-unit id="tx_mbiproductscategories_mm.uid_local" resname="tx_mbiproductscategories_mm.uid_local">
+        <source>Local product</source>
+        <target state="needs-translation">Local product</target>
+      </trans-unit>
+      <trans-unit id="tx_mbiproductscategories_mm.uid_foreign" resname="tx_mbiproductscategories_mm.uid_foreign">
+        <source>Local category</source>
+        <target state="needs-translation">Local category</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
