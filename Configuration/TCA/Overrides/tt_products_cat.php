@@ -2,10 +2,12 @@
 
 defined('TYPO3') || die('Access denied.');
 
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 call_user_func(function ($extensionKey, $table): void {
     $languageSubpath = '/Resources/Private/Language/';
 
-    if (!\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('tt_products')) {
+    if (!ExtensionManagementUtility::isLoaded('tt_products')) {
         return;
     }
 
@@ -71,13 +73,13 @@ call_user_func(function ($extensionKey, $table): void {
             ],
         ];
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
+        ExtensionManagementUtility::addTCAcolumns(
             $foreigntable,
             $tempColumns
         );
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+        ExtensionManagementUtility::addToAllTCAtypes(
             $foreigntable,
-            'reference_category;;;;1-1-1',
+            'reference_category',
             '0',
             'after:subtitle'
         );
