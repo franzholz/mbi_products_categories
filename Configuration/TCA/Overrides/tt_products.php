@@ -48,13 +48,13 @@ call_user_func(function ($extensionKey, $table): void {
         $where = ($pid_list != '' ? ' AND ' . $foreigntable . '.pid IN (' . $pid_list . ') ' : '') . $whereCategory;
 
         $GLOBALS['TCA'][$refTable]['columns'][$field]['config'] = [
-            'size' => 15,
-            'minitems' => 0,
-            'maxitems' => 150,
             'type' => 'select',
             'renderType' => 'selectTree',
             'foreign_table' => $foreigntable,
             'foreign_table_where' => $where . ' ORDER BY ' . $foreigntable . '.title',
+            'size' => 15,
+            'minitems' => 0,
+            'maxitems' => 150,
             'MM' => $mmTable,
             'treeConfig' => [
                 'parentField' => $parentfield,

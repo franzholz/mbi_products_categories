@@ -1,3 +1,6 @@
+2025-01-04 Franz Holzinger  <franz@tt_products.de>
+	* remove support for TYPO3 11.5
+
 2024-10-19 Franz Holzinger  <franz@tt_products.de>
 	* support TYPO3 13
 
